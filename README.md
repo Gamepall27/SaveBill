@@ -19,6 +19,20 @@ Alles liegt auf dem Pi unter `~/SaveBill/data`: die SQLite-DB plus die Ordner `i
 ./deploy.sh            # überträgt den aktuellen Commit nach ~/SaveBill und startet neu
 ```
 
+## Erkennung mit echten Fotos prüfen
+Als Testdaten dienen 200 echte Quittungsfotos aus dem öffentlichen Datensatz [CORD v2](https://huggingface.co/datasets/naver-clova-ix/cord-v2) (CC BY 4.0). Bei 77 davon sind die Ecken der Quittung eingezeichnet. Die Bilder liegen nicht im Repo, sie werden bei Bedarf heruntergeladen:
+```bash
+python tools/fetch_cord.py ../cord                       # Bilder + manifest.json
+python tools/eval_detection.py ../cord --overlays ../ov  # IoU-Auswertung + Bilder mit Markierung
+```
+
+| Stand | mittlere IoU | IoU ≥ 0,9 | IoU ≥ 0,8 |
+|---|---|---|---|
+| Erste Version | 0,753 | 30 % | 48 % |
+| Weißheits-Masken, Kanten-Prüfung, Kanten-Einrasten | **0,880** | **68 %** | **81 %** |
+
+Ein Teil der verbleibenden Abweichungen geht auf ungenau eingezeichnete Ecken im Datensatz zurück.
+
 ## Entwicklung
 ```bash
 python -m venv .venv && .venv/Scripts/pip install -r requirements-dev.txt
