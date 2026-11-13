@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-DATA_DIR = Path(os.environ.get("SAVEBILL_DATA", "/data"))
+DATA_DIR = Path(os.environ.get("SAVEBILL_DATA") or Path(__file__).resolve().parent.parent / "data")
 DB_PATH = DATA_DIR / "savebill.db"
 IMAGES_DIR = DATA_DIR / "images"
 THUMBS_DIR = DATA_DIR / "thumbs"
