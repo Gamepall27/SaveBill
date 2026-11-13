@@ -173,13 +173,13 @@ def crop_scan(scan_id: str, body: CornersIn):
     if not paths["image"].exists():
         raise HTTPException(404, "Scan abgelaufen – bitte neu aufnehmen")
     img = scanner.read_image(paths["image"])
-    cropped = scanner.crop_receipt(img, body.corners)
-    scanner.save_jpeg(cropped, paths["crop"])
-    text = ocr.run_ocr(cropped)
+    warped = scanner.warp(img, body.corners)
+    scanner.save_jpeg(scanner.enhance(warped), paths["crop"])
+    text, suggestions = ocr.analyze(warped)  # OCR works best on the un-enhanced crop
     paths["meta"].write_text(json.dumps({"corners": body.corners, "ocr_text": text}), encoding="utf-8")
     return {
         "crop_url": f"/api/scans/{scan_id}/crop?t={int(time.time() * 1000)}",
-        "suggestions": ocr.suggestions(text),
+        "suggestions": suggestions,
         "ocr_text": text,
     }
 
