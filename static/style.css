@@ -94,6 +94,7 @@ input, select, textarea {
 }
 textarea { min-height: 80px; resize: vertical; }
 input:focus, select:focus, textarea:focus, .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.alt-amounts { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: -4px; font-size: .9rem; }
 .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .stack { display: grid; gap: 14px; }
 .actions { display: flex; flex-wrap: wrap; gap: 10px; }
