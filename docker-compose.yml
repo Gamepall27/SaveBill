@@ -1,0 +1,12 @@
+services:
+  savebill:
+    build: .
+    image: savebill:latest
+    container_name: savebill
+    ports:
+      - "${SAVEBILL_PORT:-8080}:8080"
+    volumes:
+      - ./data:/data
+    environment:
+      - TZ=Europe/Berlin
+    restart: unless-stopped
