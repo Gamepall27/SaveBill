@@ -6,4 +6,4 @@ HOST="${1:-joshua@raspberrypi5}"
 cd "$(dirname "$0")"
 git archive --format=tar HEAD | ssh "$HOST" 'mkdir -p ~/SaveBill && tar -x -C ~/SaveBill'
 ssh "$HOST" 'cd ~/SaveBill && docker compose up -d --build && docker image prune -f >/dev/null'
-ssh "$HOST" 'curl -fsS http://localhost:8080/api/health && echo'
+ssh "$HOST" 'for i in $(seq 1 30); do curl -fsS http://localhost:8080/api/health && echo && exit 0; sleep 1; done; echo "Healthcheck fehlgeschlagen" >&2; exit 1'
