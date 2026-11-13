@@ -50,6 +50,28 @@ python tools/train_scoring.py ../cord_test ../small --eval ../cord_val ../small_
 
 Schwierig bleiben sehr kleine Quittungen (< 6 % des Bildes) auf hellem, unruhigem Untergrund (Spitzendecke, graues Holz, Granit) und andere weiße Gegenstände im Bild.
 
+## Texterkennung und Endbetrag
+Der Endbetrag wird nicht über „erste Zeile mit Summe“ gesucht. Stattdessen werden Belege gewichtet:
+- „zu zahlen“, „Gesamtbetrag“ und „SUMME EUR“ zählen stärker als „Summe“ oder „Total“.
+- Kartenzahlungen und „Bar minus Rückgeld“ bestätigen einen Betrag.
+- Ignoriert werden MwSt-Tabellen (außer deren Brutto-Summe als schwacher Hinweis), Rückgeld, Mengen- und Kilopreise („2 x 0,99“, „0,374 kg x“), „Sie haben … gespart“, Datum und Uhrzeit.
+- Typische OCR-Fehler werden korrigiert: „$1,26“ → „51,26“, „R?ckgeld“, „SUMNE“.
+
+Die OCR läuft auf dem *nicht* kontrastverstärkten Zuschnitt: Hintergrund-normalisiert, 1400 px breit, Tesseract-Layoutmodus 4. Ist der Betrag unsicher, folgt ein zweiter Durchgang (Otsu-binarisiert, Modus 6), und die Belege beider Durchgänge werden zusammengerechnet.
+
+| Endbetrag richtig (Ende-zu-Ende auf dem Pi) | vorher | jetzt |
+|---|---|---|
+| 12 echte Bons (Lidl, Edeka, Rewe, Reno, Lotto, E-Center, Fressnapf, DDR) | 2 | **11** |
+| 64 gerenderte Bons (Trainingssatz) | 56 | **59** |
+| 48 gerenderte Bons, ungesehen | 42 | **42** |
+
+Ein Scan dauert auf dem Pi dadurch etwa 3–4 s statt rund 2 s.
+```bash
+python tools/make_german_bons.py <hintergruende> ../bons --n 64          # gerenderte Bons mit bekanntem Endbetrag
+tar c app | docker exec -i savebill sh -c "rm -rf /tmp/newapp; mkdir /tmp/newapp; tar x -C /tmp/newapp"
+docker exec -i savebill python - /tmp/bench/bons < tools/ocr_dump.py      # Ende-zu-Ende-Messung im Container
+```
+
 ## Entwicklung
 ```bash
 python -m venv .venv && .venv/Scripts/pip install -r requirements-dev.txt

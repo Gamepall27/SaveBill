@@ -1,4 +1,7 @@
 from datetime import date
+from pathlib import Path
+
+import pytest
 
 from app import ocr
 
@@ -76,6 +79,95 @@ def test_title():
 
 def test_title_uppercase_long_gets_titlecased():
     assert ocr.suggest_title("BAUHAUS HAMBURG\nStr. 1") == "Bauhaus Hamburg"
+
+
+# ---------------------------------------------------------------- totals on real OCR output
+# Tesseract output of real German receipts (Wikimedia Commons photos, OCR on the Pi),
+# file name = <shop>_<total in cents>.
+
+FIXTURES = Path(__file__).parent / "fixtures" / "ocr"
+
+
+@pytest.mark.parametrize("path", sorted(FIXTURES.glob("*.txt")), ids=lambda p: p.stem)
+def test_total_from_real_ocr(path):
+    cents = int(path.stem.split("_")[1].rstrip("ab"))
+    assert ocr.suggest_amount(path.read_text(encoding="utf-8")) == cents / 100
+
+
+LIDL_CARD = """LIDL
+Bananen 1,29 A
+Milch 3,5% 0,99 A
+2 x 0,99
+Duschgel 1,95 B
+zu zahlen 5,22
+Kreditkarte 5,22
+MWST% MWST + Netto = Brutto
+A 7% 0,22 3,05 3,27
+B 19% 0,31 1,64 1,95
+Summe 0,53 4,69 5,22
+16.02.18 15:25 Uhr
+Kartenzahlung
+EUR 5,22
+"""
+
+
+def test_total_prefers_zu_zahlen_and_ignores_vat_table():
+    assert ocr.suggest_amount(LIDL_CARD) == 5.22
+
+
+def test_second_summe_after_discount_wins():
+    text = """SUMME [ 3] EUR 34,97
+MwSt.-Senkung -0,88
+Summe EUR 34,09
+Bar Euro EUR 50,09
+Rückgeld EUR -16,00
+MwSt D 16,00% 29,39 4,70"""
+    assert ocr.suggest_amount(text) == 34.09
+
+
+def test_total_from_cash_minus_change_without_sum_line():
+    text = """MIO MATE BANANE 0,69 A
+PFAND 0,15 EUR 0,15 A
+CLUB MATE 0,89 A
+PFAND 0,15 EUR 0,15 A
+Geg. BAR EUR 2,00
+R?ckgeld BAR EUR 0,12
+16. 02. 2018 15:44 Bon-Nr.:445"""
+    assert ocr.suggest_amount(text) == 1.88
+
+
+def test_cash_given_and_vat_sum_are_not_the_total():
+    text = """Kaffee 6,99 A
+Brot 2,49 A
+Summe 9,48
+Bar 50,00
+Rückgeld 40,52
+SUMME MWST 0,62 8,86"""
+    assert ocr.suggest_amount(text) == 9.48
+
+
+def test_ocr_digit_repair_with_card_payment():
+    # "5" of the sum misread as "$"; the card line confirms 51,26
+    text = "Pizza 12,50\nSumme $1,26\nVISA 51,26\n"
+    assert ocr.suggest_amount(text) == 51.26
+
+
+def test_ignores_dates_quantities_savings_and_weights():
+    text = """Tomaten 2,49 A
+0,374 kg x 9,90 EUR/kg
+Salatbar 3,70 A
+3 x 1,29
+Wasser 3,87 B
+Sie haben 12,50 EUR gespart!
+SUMME EUR 10,06
+24.12.2025 18:30"""
+    assert ocr.suggest_amount(text) == 10.06
+
+
+def test_multi_pass_evidence_is_merged():
+    first = "Brot 2,49\nSumme ?\nEC-Karte\n"
+    second = "Brot 2,49\nSumme 7,48\nEC-Karte 7,48\n"
+    assert ocr.suggest_amount([first, second]) == 7.48
 
 
 def test_category():
