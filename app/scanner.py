@@ -522,6 +522,16 @@ def save_jpeg(img: np.ndarray, path, quality: int = 88) -> None:
     os.replace(tmp, path)
 
 
+def save_png(img: np.ndarray, path) -> None:
+    ok, buf = cv2.imencode(".png", img, [cv2.IMWRITE_PNG_COMPRESSION, 1])
+    if not ok:
+        raise RuntimeError("PNG encoding failed")
+    tmp = f"{path}.tmp"
+    with open(tmp, "wb") as f:
+        f.write(buf.tobytes())
+    os.replace(tmp, path)
+
+
 def read_image(path) -> np.ndarray:
     img = cv2.imread(str(path), cv2.IMREAD_COLOR)
     if img is None:
