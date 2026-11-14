@@ -17,7 +17,7 @@ import numpy as np
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from app import scanner  # noqa: E402
-from eval_detection import quad_iou  # noqa: E402
+from eval_detection import load_labelled, quad_iou  # noqa: E402
 
 
 def collect(dirs, split=None):
@@ -28,11 +28,10 @@ def collect(dirs, split=None):
         for it in json.loads((root / "manifest.json").read_text()):
             if not it.get("roi") or (split and not it["name"].startswith(split)):
                 continue
-            img = scanner.load_image((root / "img" / it["name"]).read_bytes())
-            h, w = img.shape[:2]
+            img, roi = load_labelled(root / "img" / it["name"], it["roi"])
             scale, small, gray, white, edges = scanner._prepare(img)
             sh, sw = gray.shape
-            roi = np.array(it["roi"], np.float32) * scale
+            roi = np.array(roi, np.float32) * scale
             feats, ious = [], []
             for q, c, ex, is_box in scanner._candidates(small, gray, scanner.MIN_AREA):
                 feats.append(scanner._features(q, c, white, edges, ex, is_box))
