@@ -43,7 +43,7 @@ def _check_id(value: str) -> str:
 def _scan_paths(scan_id: str) -> dict:
     d = config.SCANS_DIR
     return {
-        "image": d / f"{scan_id}.jpg",
+        "image": d / f"{scan_id}.png",  # lossless: re-encoding can flip OCR on faint print
         "crop": d / f"{scan_id}_crop.jpg",
         "meta": d / f"{scan_id}.json",
     }
@@ -144,7 +144,7 @@ def create_scan(file: UploadFile = File(...)):
     _cleanup_scans()
     scan_id = uuid.uuid4().hex
     paths = _scan_paths(scan_id)
-    scanner.save_jpeg(img, paths["image"], quality=92)
+    scanner.save_png(img, paths["image"])
     corners, found = scanner.detect_corners(img)
     h, w = img.shape[:2]
     return {
@@ -197,7 +197,8 @@ def create_receipt(body: ReceiptIn):
     rec_id = uuid.uuid4().hex
     image = config.IMAGES_DIR / f"{rec_id}.jpg"
     shutil.move(paths["crop"], image)
-    shutil.move(paths["image"], config.ORIGINALS_DIR / f"{rec_id}.jpg")
+    scanner.save_jpeg(scanner.read_image(paths["image"]), config.ORIGINALS_DIR / f"{rec_id}.jpg", quality=92)
+    paths["image"].unlink(missing_ok=True)
     scanner.save_jpeg(scanner.thumbnail(scanner.read_image(image)), config.THUMBS_DIR / f"{rec_id}.jpg", 80)
     paths["meta"].unlink(missing_ok=True)
 
