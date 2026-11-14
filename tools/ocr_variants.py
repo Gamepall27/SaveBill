@@ -72,6 +72,12 @@ def text_height_scale(gray, target=30.0):
     return scale_to(gray, w)
 
 
+def fuse_dots(gray, k=3):
+    """Dot-matrix print: grow the dark dots into strokes (grey min-filter) and smooth."""
+    g = cv2.erode(gray, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (k, k)))
+    return cv2.GaussianBlur(g, (3, 3), 0)
+
+
 VARIANTS = {
     "cur": lambda warped, enh: (scale_to(cv2.cvtColor(enh, cv2.COLOR_BGR2GRAY), 1000), "--psm 4"),
     "raw1400_p4": lambda w, e: (scale_to(cv2.cvtColor(w, cv2.COLOR_BGR2GRAY), 1400), "--psm 4"),
@@ -90,6 +96,10 @@ VARIANTS = {
     "otsuH_p6": lambda w, e: (otsu(text_height_scale(cv2.cvtColor(w, cv2.COLOR_BGR2GRAY))), "--psm 6"),
     "inknormH_p4": lambda w, e: (bg_norm(text_height_scale(ink_channel(w))), "--psm 4"),
     "inkotsuH_p6": lambda w, e: (otsu(text_height_scale(ink_channel(w))), "--psm 6"),
+    "dotnorm_p4": lambda w, e: (bg_norm(fuse_dots(scale_to(ink_channel(w), 1400))), "--psm 4"),
+    "dototsu_p6": lambda w, e: (otsu(fuse_dots(scale_to(ink_channel(w), 1400))), "--psm 6"),
+    "dotnorm5_p4": lambda w, e: (bg_norm(fuse_dots(scale_to(ink_channel(w), 1400), 5)), "--psm 4"),
+    "dototsu5_p6": lambda w, e: (otsu(fuse_dots(scale_to(ink_channel(w), 1400), 5)), "--psm 6"),
     "norm2000_p4": lambda w, e: (bg_norm(scale_to(cv2.cvtColor(w, cv2.COLOR_BGR2GRAY), 2000)), "--psm 4"),
 }
 

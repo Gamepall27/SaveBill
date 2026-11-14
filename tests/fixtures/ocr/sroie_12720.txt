@@ -1,0 +1,42 @@
+TEO HENG ens
+
+5 (ere 637-1 ERY
+
+SIMPLIFIED TAX INVOICE
+CASH
+
+Receipt No. CS1803/28617 Date: 15/03/2018
+
+3 on 4, AMOUNT
+ITEM QTY UP Discts “Rs
+
+4974052801334 48 2 70 7. a 120.00 »
+= ARTLINE 70
+
+Total Qty. : 48 120.00
+
+SUB-TOTAL (EX) : 120.00
+
+TOTAL TAX x 7.20
+
+ROUNDING q 0.00
+
+TOTAL : 127.20
+
+CASH : 127.20
+
+CHANGE : 0.00
+
+_ [6st SUMMARY
+
+; ae AMOUNT © TAX
+TANCODE % (Ri) (Rap
+SR 6.00 120.00 7.20
+
+TOTAL: 120.00 7.20
+
+Note: (*) Indicated The Item. Sold Has Been Related
+To GST (Goods & Services Tax).
+
+GOODS SOLD ARE NOT RETURNABLE,
+THANK YOU.

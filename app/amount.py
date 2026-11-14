@@ -36,6 +36,9 @@ KW_IGNORE = re.compile(r"rabatt|preisvorteil|ersparnis|gespart|sparen|punkte|pay
                        r"|\bqty\b|quantity|item\s*\(?s\)?|total\s*item|no\.?\s*of|discount|saving|rounding"
                        r"|points?\b|voucher", re.I)
 
+_TAX_WORD = re.compile(r"mwst|mw\.?\s?st|\bust\b|steuer|\bgst\b|\bsst\b|\btax\b|\bvat\b", re.I)
+_INCL = re.compile(r"zu\s*zahlen|incl|inkl|inclusive|enth", re.I)
+
 _OCR_DIGIT_FIXES = [
     (re.compile(r"(?<![\w$])\$(?=\d)"), "5"),          # "$1,26" -> "51,26"
     (re.compile(r"(?<=\d)[oO](?=[\d,.])"), "0"),        # "1o,50" -> "10,50"
@@ -48,7 +51,7 @@ BANKNOTES = {5.0, 10.0, 20.0, 50.0, 100.0, 200.0, 500.0}
 
 
 def norm_line(line: str) -> str:
-    line = line.replace("€", " ")
+    line = line.replace("€", " ").replace("£", " ")  # OCR reads € as £ (or as a leading 6)
     for pattern, repl in _OCR_DIGIT_FIXES:
         line = pattern.sub(repl, line)
     return _DATE_TIME.sub(" ", line)
@@ -83,6 +86,8 @@ def _classify(line: str) -> str | None:
         return "change"
     if KW_SUBTOTAL.search(line):
         return "sub"
+    if _TAX_WORD.search(line) and not _INCL.search(line):
+        return "tax"  # "TOTAL GST 0,48", "Summe MwSt": a tax amount, not the total
     if KW_FINAL.search(line):
         return "final"
     if KW_TAX.search(line):
@@ -129,6 +134,7 @@ def _lines(text: str) -> list[dict]:
                 if 0 <= j < n and rows[j]["orphan"] and rows[j]["kind"] is None and not rows[j].get("taken"):
                     r["amounts"] = list(rows[j]["amounts"])
                     r["borrowed"] = True
+                    r["weight"] = 1.0 if j < i else 0.5  # dot-matrix prices sit *above* their label
                     rows[j]["taken"] = True
                     break
     return rows
@@ -136,23 +142,24 @@ def _lines(text: str) -> list[dict]:
 
 # ---------------------------------------------------------------- evidence and features
 
-EVIDENCE = ("final", "sum", "sub", "card", "cash", "taxsum", "cash_change", "items", "repaired", "orphan_only")
+EVIDENCE = ("final", "sum", "sub", "card", "cash", "taxsum", "vat_gross", "cash_change", "items", "last_total",
+            "repaired", "orphan_only")
 FEATURE_NAMES = EVIDENCE + ("borrowed", "late_pos", "n_occ", "n_kinds", "is_max", "frac_of_max", "banknote",
-                            "near_cash", "in_item_line", "log_amount", "n_texts")
+                            "near_cash", "in_item_line", "log_amount", "n_texts", "hand")
 
 
 def evidence(texts: list[str]) -> dict[float, dict]:
     """amount -> evidence counters collected over one or more OCR passes of the same receipt."""
     ev: dict[float, dict] = {}
 
-    def add(a, kind, pos=0.0, borrowed=False):
+    def add(a, kind, pos=0.0, borrowed=False, weight=1.0):
         if a is None or not (0 < a < 100000):
             return
         a = round(a, 2)
         e = ev.setdefault(a, {k: 0.0 for k in EVIDENCE} | {"borrowed": 0.0, "late_pos": 0.0, "n_occ": 0.0,
                                                           "near_cash": 0.0, "in_item_line": 0.0, "texts": set()})
         if kind:
-            e[kind] += 1
+            e[kind] += weight
         e["late_pos"] = max(e["late_pos"], pos)
         e["borrowed"] = max(e["borrowed"], float(borrowed))
         return e
@@ -160,7 +167,7 @@ def evidence(texts: list[str]) -> dict[float, dict]:
     for t_idx, text in enumerate(texts):
         rows = _lines(text)
         cash, change, item_sum, n_items = [], [], 0.0, 0
-        first_total = next((i for i, r in enumerate(rows) if r["kind"] in ("final", "sum")), len(rows))
+        last_total = None
         for i, r in enumerate(rows):
             for a in r["amounts"]:
                 e = add(abs(a), None, r["pos"])
@@ -169,13 +176,25 @@ def evidence(texts: list[str]) -> dict[float, dict]:
                     e["texts"].add(t_idx)
                     if r["item"]:
                         e["in_item_line"] += 1
-            if r["item"] and i < first_total and r["kind"] is None:
+            if r["item"] and r["kind"] is None:
                 item_sum += r["amounts"][0]
                 n_items += 1
+            if r["kind"] == "tax":
+                # "MWST B 7,00% 9,33 enth. 0,61": the amount in front of "enth." is the gross total
+                m = re.search(r"(\d[\d.,:\s]*?)\s*enth", norm_line(r["raw"]), re.I)
+                if m:
+                    gross = parse_amounts(m.group(1))
+                    if gross:
+                        add(abs(gross[-1]), "vat_gross", r["pos"])
             if not r["amounts"] or r["kind"] in ("ignore", None):
                 continue
             last = abs(r["amounts"][-1])
             kind = r["kind"]
+            if kind in ("final", "sum") and not r["tabular"]:
+                last_total = last
+                # running article sum printed as (sub)total
+                if n_items >= 2 and abs(round(item_sum, 2) - last) < 0.005:
+                    add(last, "items")
             if kind == "change":
                 change.append(last)
                 continue
@@ -192,17 +211,13 @@ def evidence(texts: list[str]) -> dict[float, dict]:
                         for b in rows[j]["amounts"]:
                             if round(abs(b), 2) in ev:
                                 ev[round(abs(b), 2)]["near_cash"] = 1.0
-            add(last, kind, r["pos"], r["borrowed"])
+            add(last, kind, r["pos"], r["borrowed"], r.get("weight", 1.0))
         for c in cash:
             for ch in change:
                 if c - ch > 0:
                     add(round(c - ch, 2), "cash_change")
-        if n_items >= 2:
-            # A printed amount equal to the sum of the article prices is very likely the total.
-            # (No new amount is invented: OCR drops or misreads articles too often.)
-            s = round(item_sum, 2)
-            if s in ev:
-                ev[s]["items"] += 1
+        if last_total is not None:
+            add(last_total, "last_total")  # running "Summe N Pos." lines: the last one is the total
         # "Summe $1,26" + "VISA 51,26": the sum's first digit was misread
         for a in list(ev):
             if ev[a]["card"] or ev[a]["cash"]:
@@ -223,12 +238,13 @@ def evidence(texts: list[str]) -> dict[float, dict]:
 
 
 def features(e: dict) -> np.ndarray:
+    e = e | {"hand": min(_hand_score(e) / 10.0, 3.0)}  # the hand-made score is one of the inputs
     return np.array([min(float(e[k]), 3.0) for k in FEATURE_NAMES], dtype=np.float64)
 
 
 # Hand-made weights (fallback and baseline); a learned scorer replaces them when present.
-HAND_WEIGHTS = {"final": 6.0, "sum": 4.0, "sub": 1.5, "card": 3.0, "cash": 1.0, "taxsum": 2.0, "cash_change": 3.5,
-                "items": 3.0, "repaired": 4.0}
+HAND_WEIGHTS = {"final": 6.0, "sum": 4.0, "sub": 1.5, "card": 3.0, "cash": 1.0, "taxsum": 2.0, "vat_gross": 3.0,
+                "cash_change": 3.5, "items": 2.0, "last_total": 2.5, "repaired": 4.0}
 # Learned with tools/train_amount.py (None = hand-made weights).
 SCORER_W = None
 SCORER_B = 0.0
@@ -279,7 +295,8 @@ def alternatives(texts: str | list[str], k: int = 3) -> list[float]:
 def confidence(texts: str | list[str]) -> float:
     """Margin between best and second candidate (hand-made scale; 0 = nothing found)."""
     texts = [texts] if isinstance(texts, str) else list(texts)
-    scores = sorted((_hand_score(e) for e in evidence(texts).values()), reverse=True)
+    # "last total line" only re-states a sum line; it must not make a lone "Summe" look certain
+    scores = sorted((_hand_score(e | {"last_total": 0.0}) for e in evidence(texts).values()), reverse=True)
     if not scores or scores[0] == 0:
         return 0.0
     return scores[0] - (scores[1] if len(scores) > 1 else 0.0)

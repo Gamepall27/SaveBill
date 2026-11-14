@@ -51,25 +51,34 @@ python tools/train_scoring.py ../cord_test ../small --eval ../cord_val ../small_
 Schwierig bleiben sehr kleine Quittungen (< 6 % des Bildes) auf hellem, unruhigem Untergrund (Spitzendecke, graues Holz, Granit) und andere weiße Gegenstände im Bild.
 
 ## Texterkennung und Endbetrag
-Der Endbetrag wird nicht über „erste Zeile mit Summe“ gesucht. Stattdessen werden Belege gewichtet:
-- „zu zahlen“, „Gesamtbetrag“ und „SUMME EUR“ zählen stärker als „Summe“ oder „Total“.
-- Kartenzahlungen und „Bar minus Rückgeld“ bestätigen einen Betrag.
-- Ignoriert werden MwSt-Tabellen (außer deren Brutto-Summe als schwacher Hinweis), Rückgeld, Mengen- und Kilopreise („2 x 0,99“, „0,374 kg x“), „Sie haben … gespart“, Datum und Uhrzeit.
-- Typische OCR-Fehler werden korrigiert: „$1,26“ → „51,26“, „R?ckgeld“, „SUMNE“.
+Die Logik steckt in `app/amount.py`. Jeder Betrag im OCR-Text sammelt Belege dafür, der Endbetrag zu sein:
+- **Schlüsselwörter:** „zu zahlen“, „Gesamtbetrag“, „SUMME EUR“, TOTAL; zusätzlich zählt die *letzte* „Summe N Pos.“.
+- **Gegenproben:** Kartenzahlung, „Gegeben/Bar minus Rückgeld“, die Artikelsumme und der Brutto-Betrag in „MWST B 7,00 % 9,33 enth. 0,61“.
+- **Nadeldruck:** Preise, die eine halbe Zeile über ihrem Text gedruckt sind, werden der Schlüsselwort-Zeile zugeordnet. „0:79“ zählt als Preis, „18:11“ als Uhrzeit.
+- **Ignoriert:** MwSt-Tabellen, „TOTAL GST“, Rückgeld, Mengen- und Kilopreise, „Sie haben … gespart“, Datum und Uhrzeit. Ein Geldschein neben „Gegeben“ ist nie der Endbetrag.
+- **Weitere Kandidaten** zeigt das Formular als antippbare Chips an („Auch erkannt: …“).
 
-Die OCR läuft auf dem *nicht* kontrastverstärkten Zuschnitt: Hintergrund-normalisiert, 1400 px breit, Tesseract-Layoutmodus 4. Ist der Betrag unsicher, folgt ein zweiter Durchgang (Otsu-binarisiert, Modus 6), und die Belege beider Durchgänge werden zusammengerechnet.
+**OCR:** Der erste Durchgang läuft auf dem hintergrund-normalisierten Zuschnitt (1400 px, Tesseract-Layoutmodus 4). Ist der Betrag unsicher, folgt ein zweiter Durchgang (Modus 6) auf dem kontrastreichsten Farbkanal, z. B. Grün für violette Tinte. Dabei werden die Nadeldruck-Punkte zu Strichen verschmolzen und Otsu-binarisiert. Die Belege beider Durchgänge werden zusammengerechnet.
 
-| Endbetrag richtig (Ende-zu-Ende auf dem Pi) | vorher | jetzt |
+| Endbetrag richtig (Ende-zu-Ende auf dem Pi) | bisher | jetzt |
 |---|---|---|
-| 12 echte Bons (Lidl, Edeka, Rewe, Reno, Lotto, E-Center, Fressnapf, DDR) | 2 | **11** |
-| 64 gerenderte Bons (Trainingssatz) | 56 | **59** |
-| 48 gerenderte Bons, ungesehen | 42 | **42** |
+| Echte deutsche Bons (Commons) | 11/12 | 11/12 |
+| Echte Bons SROIE, Prüfteil | 60/93 | **77/93** |
+| Eigenes Foto, alter Lidl-Nadeldruck (nur lokal) | 0/1 (50,00 statt 9,33) | **1/1** |
+| Gerendert, Nadeldruck-Stil, ungesehen | 8/30 | **14/30** |
+| Gerendert, Nadeldruck-Stil, Training | 13/40 | 17/40 |
+| Gerendert, Thermodruck (Training / ungesehen) | 59/64 · 42/48 | 59/64 · 41/48 |
 
-Ein Scan dauert auf dem Pi dadurch etwa 3–4 s statt rund 2 s.
+Ein Scan dauert auf dem Pi etwa 4 s. Nadeldruck bleibt schwierig: Bei rund 40 % dieser Bons steht der Endbetrag gar nicht im OCR-Text.
+
+Eine gelernte Bewertung der Kandidaten (`tools/train_amount.py`, wie bei der Quittungserkennung) wurde trainiert, ist aber *nicht aktiv*. Auf echten Bons war sie nicht verlässlich besser als die Handlogik, sie griff z. B. bei verlesenen Beträgen wie „65,00“ statt „€5,00“ daneben.
+
 ```bash
-python tools/make_german_bons.py <hintergruende> ../bons --n 64          # gerenderte Bons mit bekanntem Endbetrag
-tar c app | docker exec -i savebill sh -c "rm -rf /tmp/newapp; mkdir /tmp/newapp; tar x -C /tmp/newapp"
-docker exec -i savebill python - /tmp/bench/bons < tools/ocr_dump.py      # Ende-zu-Ende-Messung im Container
+python tools/fetch_sroie.py ../bons/sroie_test --split test --n 100            # echte Bons mit Endbetrag
+python tools/make_german_bons.py <hintergruende> ../bons/nadel --styles nadel   # Nadeldruck-Stil
+docker exec -i savebill python - /tmp/bench/<satz> < tools/ocr_variants.py      # OCR-Varianten
+docker exec -i savebill python - /tmp/bench/<satz> < tools/ocr_dump.py          # Ende-zu-Ende
+python tools/train_amount.py ../bons --train sroie_train nadel synth --eval sroie_test nadel_eval
 ```
 
 ## Entwicklung

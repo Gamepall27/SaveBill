@@ -31,12 +31,13 @@ def _lang() -> str:
 
 
 OCR_WIDTH = 1400  # receipts are scaled to this width before OCR
-CONFIDENT = 6.0  # amount evidence margin above which no second OCR pass is needed
+CONFIDENT = 7.0  # amount evidence margin above which no second OCR pass is needed
 
-# Chosen by measuring real (Wikimedia Commons) and rendered German receipts end to end on the
-# Pi (tools/ocr_variants.py, tools/ocr_dump.py): background-normalised grey + page-layout mode 4
-# first; if the total is uncertain, an Otsu-binarised pass in mode 6 (one uniform block, keeps
-# labels and prices of a line together) and the evidence of both passes is merged.
+# Chosen by measuring real (Wikimedia Commons, SROIE, own photos) and rendered receipts end to end
+# on the Pi (tools/ocr_variants.py, tools/ocr_dump.py): background-normalised grey + page-layout
+# mode 4 first; if the total is uncertain, a second pass in mode 6 (one uniform block, keeps labels
+# and prices of a line together) on the best ink channel with dot-matrix dots fused into strokes,
+# and the evidence of both passes is merged.
 
 
 def _scaled_gray(img: np.ndarray) -> np.ndarray:
@@ -53,8 +54,32 @@ def normalized(img: np.ndarray) -> np.ndarray:
     return cv2.normalize(cv2.divide(g, bg, scale=255), None, 0, 255, cv2.NORM_MINMAX)
 
 
+def ink_channel(img: np.ndarray) -> np.ndarray:
+    """The colour channel in which print and paper separate best (Otsu between-class variance).
+    Violet dot-matrix ink, for example, has far more contrast in the green channel than in grey."""
+    if img.ndim == 2:
+        return img
+    b, g, r = cv2.split(img)
+    best, best_score = None, -1.0
+    levels = np.arange(256)
+    for ch in (cv2.cvtColor(img, cv2.COLOR_BGR2GRAY), b, g, r, cv2.min(cv2.min(b, g), r)):
+        p = cv2.calcHist([ch], [0], None, [256], [0, 256]).ravel()
+        p /= p.sum()
+        w0, mu = np.cumsum(p), np.cumsum(p * levels)
+        var_t = float(np.sum(p * (levels - mu[-1]) ** 2)) + 1e-6
+        with np.errstate(divide="ignore", invalid="ignore"):
+            between = (mu[-1] * w0 - mu) ** 2 / (w0 * (1 - w0))
+        score = float(np.nanmax(between)) / var_t
+        if score > best_score:
+            best, best_score = ch, score
+    return best
+
+
 def binarized(img: np.ndarray) -> np.ndarray:
-    g = cv2.GaussianBlur(_scaled_gray(img), (3, 3), 0)
+    """Second pass: best ink channel, needle dots fused into strokes, Otsu."""
+    g = _scaled_gray(ink_channel(img))
+    g = cv2.erode(g, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3)))  # grow dark dots
+    g = cv2.GaussianBlur(cv2.GaussianBlur(g, (3, 3), 0), (3, 3), 0)  # (as measured: two light blurs)
     return cv2.threshold(g, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)[1]
 
 

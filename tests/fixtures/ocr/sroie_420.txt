@@ -1,0 +1,33 @@
+SWC ENTERPR
+(1125
+
+SDN BAD
+)
+
+8 & 10, Jalan Ijok Permai i,
+Pusat Niaga ljo
+48000 Ijok, Se
+
+TAR INVOICE
+(GST ID No. : 002017808384 }
+
+92/01/2018 Cashier:
+10:46:55 No: 01006
+
+Item/Desc. ty Price Ant,
+SXe 5008 (ik) -
+
+SX8 5008 1 4.20 4.20
+Total üty : i
+
+TOTAL AMOUNT - 4.20
+
+CASH 50.20
+
+CHANGE 46,00
+
+GST @6 Included In Total 2.24
+
+Thank You ! Please Come Again !
+Goods Sold Only Exchangable
+Within 3 Days !
