@@ -38,6 +38,9 @@ STORES = {
     "dm": ("dm-drogerie markt", "Koenigstr. 20", "70173 Stuttgart"),
     "tank": ("ARAL Tankstelle", "B27 Nord", "72070 Tuebingen"),
     "resto": ("Pizzeria Da Mario", "Gartenstr. 7", "60311 Frankfurt"),
+    # old dot-matrix Lidl till: violet ink, prices printed half a line above their label,
+    # running "Summe N Pos." subtotals, "Gegeben BAR EUR" / "Rueckgeld EUR"
+    "nadel": ("LIDL", "AN DER GUTSHAUER", "21509 GLINDE"),
 }
 
 
@@ -78,8 +81,12 @@ def build(style: str, rng: random.Random, width: int = 38) -> tuple[list[str], f
         if rng.random() < 0.5:
             add("Kaffee to go", 2.49, "B")
     else:
-        for _ in range(rng.randint(2, 12)):
-            item = rng.choice(ITEMS)
+        n_items = rng.randint(4, 18) if style == "nadel" else rng.randint(2, 12)
+        split_at = rng.randint(2, n_items - 1) if style == "nadel" and rng.random() < 0.7 else -1
+        for k in range(n_items):
+            if k == split_at:
+                L += [" " * (width - 10) + "-" * 10, row(f"Summe    {k} Pos.", eur(round(total, 2)), width)]
+            item = rng.choice(ITEMS).upper() if style == "nadel" else rng.choice(ITEMS)
             r = rng.random()
             if r < 0.15:
                 q, unit = rng.randint(2, 6), round(rng.uniform(0.19, 3.99), 2)
@@ -136,6 +143,14 @@ def build(style: str, rng: random.Random, width: int = 38) -> tuple[list[str], f
         L.append(row("girocard" if paid_card else "BAR", eur(total if paid_card else given), width))
         if given and given > total:
             L.append(row("Rueckgeld", eur(given - total), width))
+    elif style == "nadel":
+        L += [" " * (width - 10) + "-" * 10, row(f"Summe   {n_items} Pos.", eur(total), width),
+              " " * (width - 10) + "=" * 10]
+        if paid_card:
+            L.append(row("EC-Karte      EUR", eur(total), width))
+        else:
+            L.append(row("Gegeben    BAR EUR", eur(given), width))
+            L.append(row("Rueckgeld      EUR", eur(given - total), width))
     elif style == "resto":
         L += [sep, row("Summe", eur(total), width)]
         if rng.random() < 0.5:
@@ -145,8 +160,13 @@ def build(style: str, rng: random.Random, width: int = 38) -> tuple[list[str], f
         if given and given > total:
             L.append(row("Rueckgeld", eur(given - total), width))
 
-    # VAT table repeating amounts (the classic trap)
     a, b = round(tax["A"], 2), round(tax["B"], 2)
+    if style == "nadel":
+        L.append(row(f"MWST B 7,00%   {eur(total)} enth.", eur(round(total - total / 1.07, 2)), width))
+        L.append(f"{rng.randint(1000, 9999)}/{rng.randint(1, 9):03d}/02   {rng.randint(1, 28):02d}.0{rng.randint(1, 9)}.02"
+                 f"   {rng.randint(8, 20):02d}:{rng.randint(0, 59):02d}")
+        return L, total
+    # VAT table repeating amounts (the classic trap)
     na, nb = round(a / 1.07, 2), round(b / 1.19, 2)
     L += ["", row("MwSt%   MwSt    Netto", "Brutto", width)]
     L.append(row(f"A 7%   {eur(a - na):>5} {eur(na):>8}", eur(a), width))
@@ -164,24 +184,63 @@ def build(style: str, rng: random.Random, width: int = 38) -> tuple[list[str], f
     return L, total
 
 
-def render(lines, rng, font_path):
+def render(lines, rng, font_path, style=""):
+    """Paper as RGB array. style 'nadel': violet dotted print, prices raised half a line."""
     size = rng.randint(20, 26)
     font = ImageFont.truetype(font_path, size)
     cw = font.getbbox("M")[2]
     lh = int(size * rng.uniform(1.2, 1.45))
     W = int(cw * 38) + 40
     H = lh * len(lines) + 60
-    paper = rng.randint(225, 250)
-    im = Image.new("L", (W, H), paper)
+    paper = rng.randint(215, 250)
+    nadel = style == "nadel"
+    im = Image.new("L", (W, H), 0)  # ink coverage, painted white
     dr = ImageDraw.Draw(im)
-    ink = rng.randint(10, 90)  # faded thermal print up to 90
+    raise_px = int(lh * rng.uniform(0.35, 0.6)) if nadel else 0
     for i, l in enumerate(lines):
-        dr.text((20, 30 + i * lh), l, fill=ink, font=font)
-    return np.array(im)
+        y = 30 + i * lh + raise_px
+        cut = len(l.rstrip()) - len(l.rstrip().split("  ")[-1]) if nadel and "  " in l.strip() else -1
+        if cut > 0:  # left label on the baseline, right price half a line higher
+            dr.text((20, y), l[:cut], fill=255, font=font)
+            dr.text((20 + font.getlength(l[:cut]), y - raise_px), l[cut:], fill=255, font=font)
+        else:
+            dr.text((20, y), l, fill=255, font=font)
+    cov = np.asarray(im, np.float32) / 255
+    if nadel:  # needle dots
+        yy, xx = np.mgrid[0:H, 0:W]
+        period = rng.choice([2, 3])
+        dots = (((yy % period) < period - 1) & ((xx % period) < period - 1)).astype(np.float32)
+        cov = cv2.GaussianBlur(cov * dots, (0, 0), 0.7) * 1.6
+        ink = np.array([rng.uniform(110, 150), rng.uniform(40, 80), rng.uniform(80, 120)], np.float32)  # BGR violet
+    else:
+        g = rng.randint(10, 90)  # faded thermal print up to 90
+        ink = np.array([g, g, g], np.float32)
+    cov = np.clip(cov * rng.uniform(0.75, 1.25), 0, 1)[:, :, None]
+    base = np.full((H, W, 3), paper, np.float32)
+    if nadel:
+        base *= np.array([0.95, 0.96, 0.98], np.float32)  # greyish paper
+    return (base * (1 - cov) + ink * cov).astype(np.uint8)
 
 
-def photograph(paper, bg, rng):
-    ph, pw = paper.shape
+def crumple(img, rng):
+    """Low-frequency displacement + fold shading."""
+    h, w = img.shape[:2]
+    r = np.random.default_rng(rng.randint(0, 10**6))
+    dx = cv2.resize(r.normal(0, 1, (6, 4)).astype(np.float32), (w, h), interpolation=cv2.INTER_CUBIC) * w * 0.006
+    dy = cv2.resize(r.normal(0, 1, (6, 4)).astype(np.float32), (w, h), interpolation=cv2.INTER_CUBIC) * h * 0.003
+    xx, yy = np.meshgrid(np.arange(w, dtype=np.float32), np.arange(h, dtype=np.float32))
+    out = cv2.remap(img, xx + dx, yy + dy, cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE).astype(np.float32)
+    shade = 1 + cv2.resize(r.normal(0, 0.06, (12, 8)).astype(np.float32), (w, h), interpolation=cv2.INTER_LINEAR)
+    for _ in range(rng.randint(1, 3)):  # folds
+        y0 = rng.randint(int(0.1 * h), int(0.9 * h))
+        shade[max(0, y0 - 3):y0 + 3] *= rng.uniform(0.9, 0.97)
+    return np.clip(out * shade[:, :, None], 0, 255).astype(np.uint8)
+
+
+def photograph(paper, bg, rng, crumpled=False):
+    if crumpled:
+        paper = crumple(paper, rng)
+    ph, pw = paper.shape[:2]
     W, H = 1500, 2000
     bh, bw = bg.shape[:2]
     s = max(W / bw, H / bh)
@@ -199,7 +258,7 @@ def photograph(paper, bg, rng):
     rot = np.array([[np.cos(ang), -np.sin(ang)], [np.sin(ang), np.cos(ang)]], np.float32)
     quad = rect @ rot.T + np.array([cx, cy], np.float32)
     m = cv2.getPerspectiveTransform(np.float32([[0, 0], [pw, 0], [pw, ph], [0, ph]]), quad)
-    rgb = cv2.cvtColor(paper, cv2.COLOR_GRAY2BGR)
+    rgb = paper
     tint = np.array([rng.uniform(0.93, 1.0), rng.uniform(0.95, 1.0), 1.0], np.float32)  # slightly warm/cool paper
     warped = cv2.warpPerspective(rgb, m, (W, H), flags=cv2.INTER_AREA).astype(np.float32) * tint
     mask = cv2.GaussianBlur(cv2.warpPerspective(np.ones((ph, pw), np.float32), m, (W, H)), (3, 3), 0)[:, :, None]
@@ -220,6 +279,7 @@ def main():
     ap.add_argument("out")
     ap.add_argument("--n", type=int, default=60)
     ap.add_argument("--seed", type=int, default=3)
+    ap.add_argument("--styles", default="", help="comma list, default: all")
     args = ap.parse_args()
     rng = random.Random(args.seed)
     fonts = [f for f in FONT_CANDIDATES if Path(f).exists()]
@@ -227,11 +287,12 @@ def main():
     out = Path(args.out)
     (out / "img").mkdir(parents=True, exist_ok=True)
     manifest = []
-    styles = list(STORES)
+    styles = args.styles.split(",") if args.styles else [k for k in STORES if k != "nadel"]
     for i in range(args.n):
         style = styles[i % len(styles)]
         lines, total = build(style, rng)
-        data = photograph(render(lines, rng, rng.choice(fonts)), rng.choice(bgs), rng)
+        paper = render(lines, rng, rng.choice(fonts), style)
+        data = photograph(paper, rng.choice(bgs), rng, crumpled=style == "nadel" or rng.random() < 0.2)
         name = f"{style}_{i:03d}.jpg"
         (out / "img" / name).write_bytes(data)
         manifest.append({"name": name, "total": total, "style": style})

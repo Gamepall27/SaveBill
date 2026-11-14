@@ -36,6 +36,7 @@ def test_full_flow(client):
     r = client.post(f"/api/scans/{scan['scan_id']}/crop", json={"corners": scan["corners"]})
     assert r.status_code == 200, r.text
     assert "suggestions" in r.json()
+    assert isinstance(r.json()["suggestions"]["amount_alternatives"], list)
     assert client.get(r.json()["crop_url"]).status_code == 200
 
     r = client.post("/api/receipts", json={

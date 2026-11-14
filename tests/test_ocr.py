@@ -175,3 +175,67 @@ def test_category():
     assert ocr.suggest_category(TANKE) == "Tanken"
     assert ocr.suggest_category(NOKW) == "Restaurant"
     assert ocr.suggest_category("foo") is None
+
+
+# ---------------------------------------------------------------- dot-matrix / orphan / english
+
+# Anonymised pattern of an old dot-matrix Lidl receipt: prices printed half a line above
+# their label (OCR puts them on their own line), ":" read as decimal comma, two running sums.
+NADEL = """LIDL
+KARTOFFELN 2 KG 0:79 B
+ERDBEER KONF 0:99 B
+EIER 10ER 0,65 B
+H-MILCH 3,5 0,85 B
+5,32
+Summe 8 Pos.
+JOGHURT 0,29 B
+CROISSANT 0,89 B
+9,33
+Summe 17 Pos.
+50,00
+Gegeben BAR EUR
+40,67
+Rückgeld EUR
+MWST B 7,00% 9,33 enth. 0,61
+9397/002/02 26.06.02 18:11
+"""
+
+
+def test_dot_matrix_orphan_prices_and_running_sums():
+    assert ocr.suggest_amount(NADEL) == 9.33
+    alts = ocr.amount_alternatives(NADEL)
+    assert 5.32 in alts
+
+
+def test_colon_decimal_is_price_but_clock_time_is_not():
+    assert ocr._parse_amounts("KARTOFFELN 2 KG 0:79 B") == [0.79]
+    assert ocr._parse_amounts("26.06.02 18:11") == []
+    assert ocr._parse_amounts("Datum 16.02.18 15:25 Uhr") == []
+
+
+def test_banknote_given_is_never_the_total():
+    text = "BROT 2,49 B\nKAFFEE 4,99 B\n50,00\nGegeben BAR EUR\n"
+    assert ocr.suggest_amount(text) != 50.0
+
+
+def test_item_sum_confirms_the_total():
+    text = """Brot 2,49 A
+Milch 1,19 A
+Kaffee 6,99 B
+10,67
+Bar 20,00
+Rückgeld 9,33"""
+    assert ocr.suggest_amount(text) == 10.67
+
+
+def test_english_receipt_total_cash_change():
+    text = """KEDAI MAKAN
+NASI LEMAK 1 x 4.50 4.50
+TEH TARIK 1 x 2.20 2.20
+TOTAL QTY: 2
+SUB TOTAL 6.70
+ROUNDING 0.00
+TOTAL (RM) 6.70
+CASH 10.00
+CHANGE 3.30"""
+    assert ocr.suggest_amount(text) == 6.70

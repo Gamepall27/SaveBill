@@ -226,6 +226,10 @@ async function receiptFields(values) {
         <input name="amount" inputmode="decimal" value="${esc(amountInput(values.amount))}" placeholder="0,00" autocomplete="off">
       </label>
     </div>
+    ${values.alternatives?.length ? `<div class="alt-amounts" role="group" aria-label="Weitere erkannte Beträge">
+      <span class="muted">Auch erkannt:</span>
+      ${values.alternatives.map((a) => `<button type="button" class="chip" data-amount="${a}">${esc(amountInput(a))} €</button>`).join("")}
+    </div>` : ""}
     <label class="field">Kategorie
       <input name="category" list="cat-list" maxlength="100" value="${esc(values.category)}" placeholder="optional" autocomplete="off">
       <datalist id="cat-list">${cats.map((c) => `<option value="${esc(c)}">`).join("")}</datalist>
@@ -451,7 +455,8 @@ async function renderDetailsStep(scan, res) {
       <form class="stack card pad" id="rf" novalidate>
         <h1>Details</h1>
         ${s.title || s.amount != null ? `<p class="muted" style="margin:0">Vorschläge aus der Texterkennung – bitte prüfen.</p>` : ""}
-        ${await receiptFields({ title: s.title || "", date: s.date || todayIso(), amount: s.amount, category: s.category || "" })}
+        ${await receiptFields({ title: s.title || "", date: s.date || todayIso(), amount: s.amount, category: s.category || "",
+                                alternatives: (s.amount_alternatives || []).filter((a) => a !== s.amount) })}
         ${res.ocr_text?.trim() ? `<details class="ocr"><summary>Erkannter Text</summary><pre>${esc(res.ocr_text)}</pre></details>` : ""}
         <div class="actions end">
           <button type="button" class="btn" data-act="back">← Ecken</button>
@@ -461,6 +466,18 @@ async function renderDetailsStep(scan, res) {
     </div>`;
   view.querySelector('[data-act="back"]').onclick = () => renderCorners(scan);
   const form = $("#rf");
+  form.querySelectorAll("[data-amount]").forEach((chip) =>
+    chip.addEventListener("click", () => {
+      const current = parseAmount(form.amount.value);
+      form.amount.value = amountInput(Number(chip.dataset.amount));
+      // swap: the replaced suggestion becomes a chip itself
+      if (current != null && current !== Number(chip.dataset.amount)) {
+        chip.dataset.amount = current;
+        chip.textContent = `${amountInput(current)} €`;
+      }
+      form.amount.focus();
+    })
+  );
   if (!s.title) form.title.focus();
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
