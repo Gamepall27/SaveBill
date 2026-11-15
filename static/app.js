@@ -104,10 +104,9 @@ const ICONS = {
   download: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
 };
 
-/* ================================================================ scan timing (measurement) */
+/* ================================================================ scan timing (logged on the Pi for comparisons) */
 
 let perf = null; // timings of the current scan, sent to /api/metrics once the crop is shown
-let scanCount = 0;
 
 function sendPerf() {
   if (!perf) return;
@@ -426,9 +425,11 @@ function renderScan() {
           const res = await api("/api/scans", { method: "POST", body: fd });
           m.ms.scan_request = Math.round(performance.now() - t);
           m.server_scan = res.timing_ms;
-          // Measurement: every other scan shows the local photo instead of downloading the PNG.
-          m.image_source = blob !== file && scanCount++ % 2 === 0 ? "local" : "server";
-          if (m.image_source === "local") res.local_url = URL.createObjectURL(blob);
+          // Show the photo we already have instead of downloading the lossless PNG from the Pi
+          // (measured on an iPhone: 0.04 s instead of 2.4 s). The prepared photo has exactly the
+          // size the server works with; the original file only if it was not re-encoded.
+          m.image_source = blob !== file ? "local" : "server";
+          if (blob !== file) res.local_url = URL.createObjectURL(blob);
           return res;
         });
         renderCorners(scan);

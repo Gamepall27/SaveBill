@@ -18,6 +18,20 @@ Entscheidungen (Nutzer): native App später · Pi bleibt Rückfall und Referenz 
 - Vom Handy über Tailscale (WLAN und Mobilnetz) je 5 Scans; Ergebnis als Ausgangswert festhalten.
 - Sofortmaßnahme unabhängig vom Port: Eckeneditor nutzt das lokale Foto (`URL.createObjectURL(blob)`) statt des PNG-Downloads.
 
+### Ergebnis Schritt 0 (15.11.2026, iPhone, Safari, 6 Scans)
+| Teilschritt | gemessen |
+|---|---|
+| Foto verkleinern auf dem Handy | 0,01–0,15 s |
+| Upload + Erkennung (Anfrage gesamt) | 0,5–1,7 s, davon Pi 0,14–1,0 s (PNG speichern 0,02–0,48 s, Erkennung 0,12–0,46 s) |
+| Bild für den Eckeneditor | **2,4 s** als PNG vom Pi, **0,04 s** lokal |
+| Zuschnitt + Texterkennung (Anfrage gesamt) | **3,5–11,5 s**, davon Texterkennung auf dem Pi 3,3–11,3 s |
+| Zuschnitt-Vorschau laden | 0,16–0,78 s |
+
+Folgerungen:
+- Die Texterkennung ist mit Abstand der größte Posten (Ø ≈ 6 s, bis 11 s bei zwei Durchgängen). Upload und Erkennung zusammen kosten nur 0,5–1,7 s.
+- Sofortmaßnahme umgesetzt: Der Eckeneditor zeigt das Foto vom Handy (spart ≈ 2,4 s pro Scan). Die Zeitmessung bleibt im Log, damit die folgenden Schritte verglichen werden können (`docker logs savebill | grep scan-metrics`).
+- Ob `tesseract.js` auf dem iPhone schneller ist als der Pi, ist offen. Deshalb kommt in Schritt 2 **zuerst** ein Probelauf: `tesseract.js` mit denselben vorverarbeiteten Bildern auf dem iPhone messen, bevor die Logik portiert wird. Ist es nicht schneller, bleibt die Texterkennung bis zur nativen App (Apple Vision / ML Kit) auf dem Pi.
+
 ## Schritt 1 – Quittungsform im Browser (1–2 Tage)
 **Neu:** `static/detect/` (ES-Modul `detect.js`, ohne UI-Abhängigkeit, damit Logik klar getrennt bleibt).
 - Netz: `onnxruntime-web` (WASM, feste Version, lokal ausgeliefert unter `static/vendor/`), Modell `app/models/receipt_seg.onnx` über eine neue statische Route ausliefern. Vorverarbeitung exakt wie `scanner.receipt_probability` (Letterbox 256, Füllwert 114, BGR, float).
@@ -32,6 +46,7 @@ Entscheidungen (Nutzer): native App später · Pi bleibt Rückfall und Referenz 
 - Echtgerät: Zeit pro Foto auf einem Mittelklasse-Android und einem iPhone (Ziel < 1 s inkl. Laden aus Cache).
 
 ## Schritt 2 – Texterkennung und Endbetrag im Browser (2–4 Tage)
+- **Zuerst Probelauf (½ Tag):** eine Testseite mit `tesseract.js` (deu+eng, PSM 4/6) auf vorverarbeiteten Bons; Zeit auf dem iPhone gegen die Pi-Werte aus Schritt 0. Nur bei klarem Gewinn weiter.
 - OCR-Vorverarbeitung aus `app/ocr.py` portieren (`_scaled_gray`, `normalized`, `ink_channel`, `binarized`) mit `opencv.js`.
 - `tesseract.js` (Tesseract 5, WASM) mit `deu+eng`, PSM 4 bzw. 6, Sprachdaten lokal ausliefern und cachen; Ablauf wie `ocr.analyze` (zweiter Durchgang nur bei `confidence < CONFIDENT`).
 - Reine Textlogik nach JS (`static/detect/suggest.js`): `app/amount.py` komplett (Regexe, `_lines`, `evidence`, `_hand_score`, `ranked`, `suggest`, `alternatives`, `confidence`) und aus `app/ocr.py` `suggest_date`, `suggest_title`, `suggest_category`. Achtung Regex-Unterschiede Python ↔ JS (Lookbehind ok in modernen Browsern, `\b` mit Umlauten, `re.I`).
@@ -61,7 +76,7 @@ Entscheidungen (Nutzer): native App später · Pi bleibt Rückfall und Referenz 
 | Schritt | Stand | Datum | Messwerte / Commit |
 |---|---|---|---|
 | Vorab – Plan im Projekt | erledigt | 15.11.2026 | dieser Commit |
-| 0 – Messen | in Arbeit | 15.11.2026 | Messung eingebaut, Handy-Messungen stehen aus |
+| 0 – Messen | erledigt | 15.11.2026 | siehe „Ergebnis Schritt 0“; lokales Bild im Eckeneditor eingebaut |
 | 1 – Quittungsform im Browser | offen | | |
 | 2 – Texterkennung und Endbetrag im Browser | offen | | |
 | 3 – Nur Ergebnis hochladen, Pi als Rückfall | offen | | |
