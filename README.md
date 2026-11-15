@@ -50,6 +50,33 @@ python tools/train_scoring.py ../cord_test ../small --eval ../cord_val ../small_
 
 Schwierig bleiben sehr kleine Quittungen (< 6 % des Bildes) auf hellem, unruhigem Untergrund (Spitzendecke, graues Holz, Granit) und andere weiße Gegenstände im Bild.
 
+### Segmentierungsnetz
+Seit diesem Stand markiert ein kleines neuronales Netz (≈ 100 000 Parameter, 390 KB, `app/models/receipt_seg.onnx`, läuft über `cv2.dnn`) für jeden Bildpunkt, ob er zur Quittung gehört. Die bisherigen OpenCV-Kandidaten und die Umrisse aus der Netzmaske werden mit dieser Vorhersage verglichen. Der beste wird an die Papierkanten angelegt, kleine Quittungen bekommen einen vergrößerten zweiten Durchgang. Leeres Papier am Bonende, das das Netz nicht markiert, wird über gleiche Farbe ohne Kante dazwischen ergänzt. Fehlt das Modell, gilt die bisherige Erkennung.
+
+Trainiert wird auf dem CORD-Trainingsteil (269 beschriftete Fotos) und auf zusammengesetzten Fotos. Dafür liegen CORD-Quittungen auf Untergrundfotos von Wikimedia Commons, mit Knicken, Abrisskanten, Fingern, Schatten, Anhängern und Karten, die keine Quittungen sind, sowie fast weißen Flächen. Die Prüffotos werden dabei nie verwendet, und die Untergründe der Prüfsätze sind von Hand ausgewählt und vom Training ausgeschlossen.
+```bash
+python tools/fetch_cord.py ../cord_train --train                          # 800 Trainingsfotos (Parquet, ~1,8 GB)
+python tools/fetch_backgrounds.py ../bg                                   # Untergründe von Wikimedia Commons
+python tools/train_segmenter.py prepare ../cord_train ../bg ../cache      # braucht torch + onnx (nur zum Training)
+python tools/train_segmenter.py train ../cache --iters 18000              # ~5 h auf CPU
+```
+
+**Prüfdaten von Hand kontrolliert.** Bisher wurden Fotos über 3000 px verkleinert, die Soll-Ecken aber nicht, sodass die alten Werte oben zu niedrig sind. Außerdem sind die CORD-Umrisse oft grob: Bei 48 von 77 Fotos lag mindestens eine Ecke mehr als 1 % der Bildgröße neben der Papierkante, bei 16 Fotos mehr als 3 %. Alle 77 Fotos wurden Ecke für Ecke in der Vergrößerung geprüft und korrigiert (`tools/cord_labels_verified.json`). Die zusammengesetzten Prüfsätze (je 150 Bilder) wurden Bild für Bild durchgesehen.
+```bash
+python tools/eval_detection.py ../cord --labels tools/cord_labels_verified.json
+python tools/make_small_set.py ../cord <prüf-untergründe> ../small_eval --seed 11 --labels tools/cord_labels_verified.json
+python tools/make_small_set.py ../cord <prüf-untergründe> ../mixed_eval --seed 23 --max 0.7 --labels tools/cord_labels_verified.json
+```
+
+| mittlere IoU (Anteil ≥ 0,95) | bisher | mit Netz |
+|---|---|---|
+| CORD, 77 echte Fotos, geprüfte Ecken | 0,932 (64 %) | **0,958 (74 %)** |
+| kleine Quittungen, ungesehene Untergründe (150) | 0,663 (39 %) | **0,977 (93 %)** |
+| gemischte Größen 3–70 %, ungesehene Untergründe (150) | 0,743 (37 %) | **0,960 (76 %)** |
+| brauchbar erkannt, IoU ≥ 0,8 (alle 377 Bilder) | 67 % | **98 %** |
+
+Die Erkennung dauert auf einem Desktop-PC etwa 0,2–0,3 s pro Foto.
+
 ## Texterkennung und Endbetrag
 Die Logik steckt in `app/amount.py`. Jeder Betrag im OCR-Text sammelt Belege dafür, der Endbetrag zu sein:
 - **Schlüsselwörter:** „zu zahlen“, „Gesamtbetrag“, „SUMME EUR“, TOTAL; zusätzlich zählt die *letzte* „Summe N Pos.“.

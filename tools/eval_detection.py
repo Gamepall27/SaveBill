@@ -72,7 +72,7 @@ def main():
         scanner._seg_state.update(loaded=True, net=None)
     for kv in args.set:
         k, v = kv.split("=", 1)
-        setattr(scanner, k, type(getattr(scanner, k))(eval(v)))  # noqa: S307 (local tool)
+        setattr(scanner, k, eval(v))  # noqa: S307 (local tool)
 
     root = Path(args.dataset)
     items = json.loads((root / "manifest.json").read_text())

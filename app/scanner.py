@@ -1,6 +1,8 @@
 """Receipt detection and perspective correction."""
 import io
 import os
+import threading
+from pathlib import Path
 
 import cv2
 import numpy as np
@@ -460,8 +462,193 @@ def _zoom(img: np.ndarray, quad: np.ndarray) -> np.ndarray | None:
     return zq + np.array([cx0, cy0], np.float32)
 
 
+# --------------------------------------------------------------------------- segmentation network
+# A small CNN (tools/train_segmenter.py) predicts the receipt area per pixel. Candidate outlines
+# from the network mask and from the classic masks above are compared with that prediction;
+# the best match is snapped to the paper edges at full detection resolution.
+
+SEG_PATH = Path(__file__).resolve().parent / "models" / "receipt_seg.onnx"
+SEG_SIZE = 256
+SEG_PAD = 114
+SEG_THRESH = 0.5
+SEG_MIN_MASS = 0.004  # predicted receipt area below this fraction of the photo: nothing found
+SEG_MIN_IOU = 0.5  # agreement (soft IoU) needed between the outline and the prediction
+SEG_ZOOM_BELOW = 0.25  # outlines smaller than this get a second, zoomed network pass
+SEG_CLASSIC = True  # also consider the classic candidates
+_seg_state: dict = {"loaded": False, "net": None}
+_seg_lock = threading.Lock()
+
+
+def _seg_net():
+    with _seg_lock:
+        if not _seg_state["loaded"]:
+            _seg_state["loaded"] = True
+            if SEG_PATH.exists():
+                try:
+                    _seg_state["net"] = cv2.dnn.readNetFromONNX(str(SEG_PATH))
+                except cv2.error:
+                    _seg_state["net"] = None
+        return _seg_state["net"]
+
+
+def receipt_probability(img: np.ndarray) -> np.ndarray | None:
+    """Per-pixel receipt probability (float32, image size), or None without the model."""
+    net = _seg_net()
+    if net is None:
+        return None
+    h, w = img.shape[:2]
+    s = SEG_SIZE / max(h, w)
+    nw, nh = max(1, round(w * s)), max(1, round(h * s))
+    canvas = np.full((SEG_SIZE, SEG_SIZE, 3), SEG_PAD, np.uint8)
+    x0, y0 = (SEG_SIZE - nw) // 2, (SEG_SIZE - nh) // 2
+    interp = cv2.INTER_AREA if s < 1 else cv2.INTER_LINEAR
+    canvas[y0:y0 + nh, x0:x0 + nw] = cv2.resize(img, (nw, nh), interpolation=interp)
+    blob = canvas.transpose(2, 0, 1)[None].astype(np.float32)
+    with _seg_lock:
+        net.setInput(blob)
+        out = net.forward()[0, 0]
+    return cv2.resize(out[y0:y0 + nh, x0:x0 + nw], (w, h), interpolation=cv2.INTER_LINEAR)
+
+
+def _soft_iou(q: np.ndarray, prob: np.ndarray, total: float) -> float:
+    m = np.zeros(prob.shape, np.uint8)
+    cv2.fillPoly(m, [np.round(q).astype(np.int32)], 1)
+    inside = float(prob[m == 1].sum())
+    return inside / max(float(m.sum()) + total - inside, 1e-6)
+
+
+def _main_component(prob: np.ndarray) -> np.ndarray | None:
+    """Probability map restricted to the strongest predicted receipt (several in the photo)."""
+    binary = (prob > SEG_THRESH).astype(np.uint8)
+    n, labels, stats, _ = cv2.connectedComponentsWithStats(binary, connectivity=8)
+    if n <= 1:
+        return None
+    mass = [float(prob[labels == i].sum()) for i in range(1, n)]
+    k = 1 + int(np.argmax(mass))
+    if mass[k - 1] < SEG_MIN_MASS * prob.size:
+        return None
+    region = (labels == k).astype(np.uint8)
+    region = cv2.dilate(region, np.ones((9, 9), np.uint8))
+    return prob * region
+
+
+SEG_GROW = True  # extend the prediction into adjoining blank paper of the same colour
+GROW_TOL = 8  # max. colour distance (Lab) to the predicted paper
+
+
+def _grow_blank_paper(prob: np.ndarray, small: np.ndarray, gray: np.ndarray) -> np.ndarray:
+    """The network looks for print; long blank receipt ends count as receipt too.
+
+    Pixels of the same colour as the confidently predicted paper, connected to it without
+    crossing an edge, are added to the prediction.
+    """
+    core = prob > 0.7
+    if core.sum() < 50:
+        return prob
+    lab = cv2.cvtColor(cv2.GaussianBlur(small, (5, 5), 0), cv2.COLOR_BGR2LAB).astype(np.float32)
+    ref = np.median(lab[core], axis=0)
+    similar = np.linalg.norm(lab - ref, axis=2) < GROW_TOL
+    edges = cv2.dilate(cv2.Canny(gray, 30, 90), np.ones((3, 3), np.uint8))
+    free = (similar & (edges == 0)).astype(np.uint8)
+    n, labels = cv2.connectedComponents(free, connectivity=4)
+    touched = np.unique(labels[core & (free == 1)])
+    touched = touched[touched > 0]
+    if not len(touched):
+        return prob
+    grown = np.isin(labels, touched)
+    grown = cv2.morphologyEx(grown.astype(np.uint8), cv2.MORPH_CLOSE, np.ones((7, 7), np.uint8)) > 0
+    if grown.sum() > 3 * max(core.sum(), 1) or grown.mean() > 0.9:
+        return prob  # leaked into a white table: keep the prediction
+    return np.maximum(prob, grown.astype(np.float32) * 0.9)
+
+
+def _detect_seg(img: np.ndarray) -> tuple[np.ndarray | None, float]:
+    """Network-guided detection. Returns (quad in img coords or None, agreement)."""
+    h, w = img.shape[:2]
+    scale, small, gray, white, _ = _prepare(img)
+    prob = receipt_probability(small)
+    if prob is None:
+        return None, 0.0
+    prob = _main_component(prob)
+    if prob is None:
+        return None, 0.0
+    if SEG_GROW:
+        prob = _grow_blank_paper(prob, small, gray)
+    total = float(prob.sum())
+    sh, sw = gray.shape
+    masks = [(prob > t).astype(np.uint8) * 255 for t in (SEG_THRESH, 0.3, 0.7)]
+    hyps = []
+    for mask in masks:
+        cs, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        if not cs:
+            continue
+        c = max(cs, key=cv2.contourArea)
+        q, _ = _quad_from_contour(c)
+        hyps.append(q)
+        box = cv2.boxPoints(cv2.minAreaRect(cv2.convexHull(c))).astype(np.float32)
+        hyps.append(box)
+    if SEG_CLASSIC:
+        hyps += [q for q, _, _, _ in _candidates(small, gray, MIN_AREA / 3)]
+    best, best_iou = None, 0.0
+    for q in hyps:
+        q = order_corners(np.clip(q, 0, [sw - 1, sh - 1]))
+        iou = _soft_iou(q, prob, total)
+        if iou > best_iou:
+            best, best_iou = q, iou
+    if best is None:
+        return None, 0.0
+    if REFINE:
+        # snap to the paper edges unless that clearly contradicts the prediction
+        r = _refine(best, white)
+        r_iou = _soft_iou(r, prob, total)
+        if r_iou >= best_iou - 0.03:
+            best, best_iou = r, max(best_iou, r_iou)
+    quad = best / scale
+    quad[:, 0] = np.clip(quad[:, 0], 0, w - 1)
+    quad[:, 1] = np.clip(quad[:, 1], 0, h - 1)
+    return quad, best_iou
+
+
+def _crop_around(img: np.ndarray, quad: np.ndarray, margin: float):
+    h, w = img.shape[:2]
+    x0, y0 = quad.min(axis=0)
+    x1, y1 = quad.max(axis=0)
+    mx, my = (x1 - x0) * margin, (y1 - y0) * margin
+    cx0, cy0 = int(max(0, x0 - mx)), int(max(0, y0 - my))
+    cx1, cy1 = int(min(w, x1 + mx + 1)), int(min(h, y1 + my + 1))
+    return img[cy0:cy1, cx0:cx1], np.array([cx0, cy0], np.float32)
+
+
+def _detect_with_seg(img: np.ndarray) -> np.ndarray | None:
+    h, w = img.shape[:2]
+    quad, agree = _detect_seg(img)
+    if quad is None or agree < SEG_MIN_IOU:
+        return None
+    if SEG_ZOOM_BELOW and cv2.contourArea(quad) < SEG_ZOOM_BELOW * w * h:
+        crop, off = _crop_around(img, quad, ZOOM_MARGIN)
+        if min(crop.shape[:2]) >= 40:
+            zq, z_agree = _detect_seg(crop)
+            if zq is not None and z_agree >= SEG_MIN_IOU and cv2.contourArea(zq) < 0.95 * crop.shape[0] * crop.shape[1]:
+                quad = zq + off
+    return order_corners(quad)
+
+
 def detect_corners(img: np.ndarray) -> tuple[list[list[float]], bool]:
     """Find the receipt outline. Returns (corners TL,TR,BR,BL in image coords, found)."""
+    h, w = img.shape[:2]
+    if _seg_net() is not None:
+        quad = _detect_with_seg(img)
+        if quad is not None:
+            return [[round(float(x), 1), round(float(y), 1)] for x, y in quad], True
+        if SEG_TRUST_EMPTY:
+            return full_frame(w, h), False
+    return _detect_classic(img)
+
+
+SEG_TRUST_EMPTY = False  # network found nothing: True = whole photo, False = classic detection
+
+
+def _detect_classic(img: np.ndarray) -> tuple[list[list[float]], bool]:
     h, w = img.shape[:2]
     quad, score = _detect_once(img, MIN_AREA)
     if quad is None or score < MIN_SCORE:

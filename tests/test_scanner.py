@@ -62,3 +62,25 @@ def test_load_image_applies_exif_and_downscale(tmp_path):
     arr = scanner.load_image(buf.getvalue(), max_side=1000)
     h, w = arr.shape[:2]
     assert (w, h) == (500, 1000)
+
+
+def test_segmentation_model_is_shipped_and_marks_the_receipt():
+    assert scanner.SEG_PATH.exists()
+    truth = CASES[0]
+    img = photo(truth)
+    prob = scanner.receipt_probability(img)
+    assert prob is not None and prob.shape == img.shape[:2]
+    inside = np.zeros(img.shape[:2], np.uint8)
+    cv2.fillPoly(inside, [np.array(truth, np.int32)], 1)
+    assert prob[inside == 1].mean() > 0.5
+    assert prob[inside == 0].mean() < 0.1
+
+
+def test_detect_corners_without_model_uses_classic_detection(monkeypatch):
+    monkeypatch.setitem(scanner._seg_state, "loaded", True)
+    monkeypatch.setitem(scanner._seg_state, "net", None)
+    truth = CASES[0]
+    corners, found = scanner.detect_corners(photo(truth))
+    assert found
+    err = np.linalg.norm(np.array(corners) - scanner.order_corners(truth), axis=1)
+    assert err.max() < 40
