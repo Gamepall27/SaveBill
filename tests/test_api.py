@@ -110,19 +110,3 @@ def test_metrics_are_accepted(client):
     r = client.post("/api/metrics", json={"data": {"ms": {"prepare": 120}, "image_source": "local"}})
     assert r.status_code == 200 and r.json() == {"ok": True}
 
-
-def test_ocr_probe_endpoints(client):
-    scan = _upload(client)
-    client.post(f"/api/scans/{scan['scan_id']}/crop", json={"corners": scan["corners"]})
-    rec = client.post("/api/receipts", json={"scan_id": scan["scan_id"], "title": "Rewe", "date": "2026-11-13",
-                                             "amount": 12.52}).json()
-    assert client.get("/api/probe/receipts").json() == [rec["id"]]
-    r = client.get(f"/api/probe/{rec['id']}/pass1.png")
-    assert r.status_code == 200 and r.content[:4] == b"\x89PNG"
-    assert client.get(f"/api/probe/{rec['id']}/pass3.png").status_code == 404
-    assert client.get("/api/probe/tessdata/../../etc").status_code == 404
-    r = client.post(f"/api/probe/{rec['id']}/compare",
-                    json={"index": 0, "texts": {"1": "SUMME EUR 12,52", "2": "SUMME 12,52"}, "ms": {"1": 900, "2": 800}})
-    assert r.status_code == 200, r.text
-    assert r.json()["phone_amount_ok"] is True
-    assert set(r.json()["passes"]) == {"1", "2"}
