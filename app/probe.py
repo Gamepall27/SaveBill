@@ -90,8 +90,12 @@ def compare(rec_id: str, body: PhoneResult):
     for name, texts in (("pi", pi_texts), ("phone", phone_texts)):
         a = amount.suggest(texts) if texts else None
         out[f"{name}_amount_ok"] = None if saved is None else (a is not None and round(a * 100) == saved)
-    out["same_amount"] = (amount.suggest(pi_texts) if pi_texts else None) == \
-        (amount.suggest(phone_texts) if phone_texts else None)
+    pi_amount = amount.suggest(pi_texts) if pi_texts else None
+    phone_amount = amount.suggest(phone_texts) if phone_texts else None
+    out["same_amount"] = pi_amount == phone_amount
     out["load_ms"] = body.load_ms
+    # Only numbers go to the log; amounts and texts are shown on the phone only.
     log.info("ocr-probe %s", json.dumps(out | {"ua": (body.ua or "")[:160]}, separators=(",", ":")))
-    return out
+    return out | {"show": {"pi_amount": pi_amount, "phone_amount": phone_amount,
+                           "saved_amount": None if saved is None else saved / 100,
+                           "pi_texts": {n: _pi(rec_id, n, crop)[0] for n in sorted(body.texts) if n in PASSES}}}
