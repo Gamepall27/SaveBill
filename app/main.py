@@ -132,22 +132,41 @@ def health():
     return {"ok": True}
 
 
+class _Timer:
+    """Durations of the steps of one request in ms (returned to the client for measurements)."""
+
+    def __init__(self):
+        self.t = time.perf_counter()
+        self.ms: dict[str, int] = {}
+
+    def lap(self, name: str) -> None:
+        now = time.perf_counter()
+        self.ms[name] = round((now - self.t) * 1000)
+        self.t = now
+
+
 @app.post("/api/scans")
 def create_scan(file: UploadFile = File(...)):
+    tm = _Timer()
     data = file.file.read(config.MAX_UPLOAD_BYTES + 1)
     if len(data) > config.MAX_UPLOAD_BYTES:
         raise HTTPException(413, "Datei zu groß")
+    tm.lap("read")
     try:
         img = scanner.load_image(data)
     except Exception:
         raise HTTPException(400, "Bild konnte nicht gelesen werden")
+    tm.lap("decode")
     _cleanup_scans()
     scan_id = uuid.uuid4().hex
     paths = _scan_paths(scan_id)
     scanner.save_png(img, paths["image"])
+    tm.lap("save")
     corners, found = scanner.detect_corners(img)
+    tm.lap("detect")
     h, w = img.shape[:2]
     return {
+        "timing_ms": tm.ms,
         "scan_id": scan_id,
         "width": w,
         "height": h,
@@ -172,16 +191,32 @@ def crop_scan(scan_id: str, body: CornersIn):
     paths = _scan_paths(_check_id(scan_id))
     if not paths["image"].exists():
         raise HTTPException(404, "Scan abgelaufen – bitte neu aufnehmen")
+    tm = _Timer()
     img = scanner.read_image(paths["image"])
+    tm.lap("load")
     warped = scanner.warp(img, body.corners)
     scanner.save_jpeg(scanner.enhance(warped), paths["crop"])
+    tm.lap("crop")
     text, suggestions = ocr.analyze(warped)  # OCR works best on the un-enhanced crop
+    tm.lap("ocr")
     paths["meta"].write_text(json.dumps({"corners": body.corners, "ocr_text": text}), encoding="utf-8")
     return {
+        "timing_ms": tm.ms,
         "crop_url": f"/api/scans/{scan_id}/crop?t={int(time.time() * 1000)}",
         "suggestions": suggestions,
         "ocr_text": text,
     }
+
+
+class MetricsIn(BaseModel):
+    data: dict
+
+
+@app.post("/api/metrics")
+def metrics(body: MetricsIn):
+    """Timing of one scan as measured on the phone; only written to the log (docker logs)."""
+    log.info("scan-metrics %s", json.dumps(body.data, separators=(",", ":"))[:4000])
+    return {"ok": True}
 
 
 # ------------------------------------------------------------------ receipts

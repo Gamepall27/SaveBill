@@ -104,6 +104,21 @@ const ICONS = {
   download: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 20h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
 };
 
+/* ================================================================ scan timing (measurement) */
+
+let perf = null; // timings of the current scan, sent to /api/metrics once the crop is shown
+let scanCount = 0;
+
+function sendPerf() {
+  if (!perf) return;
+  const c = navigator.connection || {};
+  const data = { ...perf, total_ms: Math.round(performance.now() - perf.t0), t0: undefined,
+                 net: c.effectiveType, downlink: c.downlink, ua: navigator.userAgent };
+  perf = null;
+  fetch("/api/metrics", { method: "POST", headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({ data }) }).catch(() => {});
+}
+
 /* ================================================================ corner editor */
 
 function createCornerEditor(root, { src, width, height, corners }) {
@@ -400,11 +415,21 @@ function renderScan() {
       const file = inp.files?.[0];
       if (!file) return;
       try {
+        const m = (perf = { t0: performance.now(), orig_bytes: file.size, ms: {} });
         const scan = await busy("Erkenne Quittung…", async () => {
           const blob = await prepareImage(file);
+          m.ms.prepare = Math.round(performance.now() - m.t0);
+          m.upload_bytes = blob.size;
           const fd = new FormData();
           fd.append("file", blob, "receipt.jpg");
-          return api("/api/scans", { method: "POST", body: fd });
+          const t = performance.now();
+          const res = await api("/api/scans", { method: "POST", body: fd });
+          m.ms.scan_request = Math.round(performance.now() - t);
+          m.server_scan = res.timing_ms;
+          // Measurement: every other scan shows the local photo instead of downloading the PNG.
+          m.image_source = blob !== file && scanCount++ % 2 === 0 ? "local" : "server";
+          if (m.image_source === "local") res.local_url = URL.createObjectURL(blob);
+          return res;
         });
         renderCorners(scan);
       } catch (e) {
@@ -429,15 +454,31 @@ function renderCorners(scan) {
         <button class="btn primary" data-act="next">Zuschneiden →</button>
       </div>
     </div>`;
-  const ed = createCornerEditor($("#editor"), { src: scan.image_url, width: scan.width, height: scan.height, corners: scan.corners });
+  const ed = createCornerEditor($("#editor"), { src: scan.local_url || scan.image_url, width: scan.width, height: scan.height, corners: scan.corners });
+  if (perf && perf.ms.image_load == null) {
+    const t = performance.now();
+    const img = $(".ce-img", $("#editor"));
+    const done = () => { if (perf && perf.ms.image_load == null) perf.ms.image_load = Math.round(performance.now() - t); };
+    if (img.complete && img.naturalWidth) done(); else img.addEventListener("load", done, { once: true });
+  }
   view.querySelector('[data-act="retake"]').onclick = renderScan;
   view.querySelector('[data-act="auto"]').onclick = () => ed.set(scan.corners);
   view.querySelector('[data-act="full"]').onclick = () => ed.set(fullFrame(scan.width, scan.height));
   view.querySelector('[data-act="next"]').onclick = async () => {
     try {
+      const t = performance.now();
       const res = await busy("Schneide zu und lese Text…", () =>
         api(`/api/scans/${scan.scan_id}/crop`, { method: "POST", json: { corners: ed.corners } })
       );
+      if (perf) {
+        perf.ms.crop_request = Math.round(performance.now() - t);
+        perf.server_crop = res.timing_ms;
+        const img = new Image();
+        const t2 = performance.now();
+        img.onload = () => { if (perf) { perf.ms.crop_image_load = Math.round(performance.now() - t2); sendPerf(); } };
+        img.onerror = () => sendPerf();
+        img.src = res.crop_url;
+      }
       scan.corners = ed.corners;
       renderDetailsStep(scan, res);
     } catch (e) {

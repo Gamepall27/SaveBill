@@ -61,7 +61,7 @@ Entscheidungen (Nutzer): native App später · Pi bleibt Rückfall und Referenz 
 | Schritt | Stand | Datum | Messwerte / Commit |
 |---|---|---|---|
 | Vorab – Plan im Projekt | erledigt | 15.11.2026 | dieser Commit |
-| 0 – Messen | offen | | |
+| 0 – Messen | in Arbeit | 15.11.2026 | Messung eingebaut, Handy-Messungen stehen aus |
 | 1 – Quittungsform im Browser | offen | | |
 | 2 – Texterkennung und Endbetrag im Browser | offen | | |
 | 3 – Nur Ergebnis hochladen, Pi als Rückfall | offen | | |

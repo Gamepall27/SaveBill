@@ -96,3 +96,16 @@ def test_bad_ids_and_inputs(client):
     client.post(f"/api/scans/{scan['scan_id']}/crop", json={"corners": scan["corners"]})
     r = client.post("/api/receipts", json={"scan_id": scan["scan_id"], "title": "x", "date": "13.11.2026"})
     assert r.status_code == 422
+
+
+def test_scan_and_crop_report_step_timings(client):
+    scan = _upload(client)
+    t = scan["timing_ms"]
+    assert set(t) == {"read", "decode", "save", "detect"} and all(v >= 0 for v in t.values())
+    r = client.post(f"/api/scans/{scan['scan_id']}/crop", json={"corners": scan["corners"]})
+    assert set(r.json()["timing_ms"]) == {"load", "crop", "ocr"}
+
+
+def test_metrics_are_accepted(client):
+    r = client.post("/api/metrics", json={"data": {"ms": {"prepare": 120}, "image_source": "local"}})
+    assert r.status_code == 200 and r.json() == {"ok": True}
