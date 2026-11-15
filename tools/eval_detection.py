@@ -3,7 +3,11 @@
 Dataset layout: <dir>/manifest.json  ([{"name", "roi": [[x,y]x4] | null}])
                 <dir>/img/<name>
 
-Usage:  python tools/eval_detection.py <dataset-dir> [--overlays <out-dir>] [--all]
+Usage:  python tools/eval_detection.py <dataset-dir> [--overlays <out-dir>] [--all] [--labels <json>]
+
+For CORD use --labels tools/cord_labels_verified.json: the original CORD outlines are often
+loose (several percent of the photo next to the paper edge); these were re-checked by hand
+corner by corner.
 """
 import argparse
 import json
@@ -29,6 +33,20 @@ def quad_iou(a, b, w, h) -> float:
     return float(inter / union) if union else 0.0
 
 
+def load_labelled(path: Path, roi):
+    """Load a photo like the app does and scale its label to the (possibly downscaled) image."""
+    data = path.read_bytes()
+    img = scanner.load_image(data)
+    if roi is None:
+        return img, None
+    import io
+    from PIL import Image, ImageOps
+    with Image.open(io.BytesIO(data)) as im:
+        ow, oh = ImageOps.exif_transpose(im).size
+    h, w = img.shape[:2]
+    return img, (np.asarray(roi, np.float32) * np.array([w / ow, h / oh], np.float32)).tolist()
+
+
 def overlay(img, pred, gt, path):
     out = img.copy()
     if gt is not None:
@@ -42,10 +60,26 @@ def main():
     ap.add_argument("dataset")
     ap.add_argument("--overlays")
     ap.add_argument("--all", action="store_true", help="also process unlabelled images (overlays only)")
+    ap.add_argument("--classic", action="store_true", help="without the segmentation network")
+    ap.add_argument("--model", help="use this ONNX model instead of app/models/receipt_seg.onnx")
+    ap.add_argument("--set", nargs="*", default=[], metavar="NAME=VALUE",
+                    help="override scanner constants, e.g. SEG_MIN_IOU=0.6")
+    ap.add_argument("--labels", help="JSON with verified corners ({labels: {name: {roi}}}) overriding the manifest")
     args = ap.parse_args()
+    if args.model:
+        scanner.SEG_PATH = Path(args.model)
+    if args.classic:
+        scanner._seg_state.update(loaded=True, net=None)
+    for kv in args.set:
+        k, v = kv.split("=", 1)
+        setattr(scanner, k, eval(v))  # noqa: S307 (local tool)
 
     root = Path(args.dataset)
     items = json.loads((root / "manifest.json").read_text())
+    if args.labels:
+        verified = json.loads(Path(args.labels).read_text())["labels"]
+        items = [dict(it, roi=verified[it["name"]]["roi"]) if it["name"] in verified else dict(it, roi=None)
+                 for it in items]
     if args.overlays:
         Path(args.overlays).mkdir(parents=True, exist_ok=True)
 
@@ -56,16 +90,16 @@ def main():
         p = root / "img" / it["name"]
         if not p.exists():
             continue
-        img = scanner.load_image(p.read_bytes())
+        img, roi = load_labelled(p, it.get("roi"))
         h, w = img.shape[:2]
         pred, found = scanner.detect_corners(img)
         iou = None
-        if it.get("roi") is not None:
-            iou = quad_iou(pred, it["roi"], w, h)
+        if roi is not None:
+            iou = quad_iou(pred, roi, w, h)
             results.append((iou, found, it["name"]))
         if args.overlays:
             tag = "nogt" if iou is None else f"{iou:.2f}"
-            overlay(img, pred, it.get("roi"), Path(args.overlays) / f"{tag}_{it['name']}")
+            overlay(img, pred, roi, Path(args.overlays) / f"{tag}_{it['name']}")
 
     dt = time.time() - t0
     if not results:

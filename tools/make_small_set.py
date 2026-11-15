@@ -5,7 +5,12 @@ random size, rotation and perspective onto real background photos, with a soft s
 uneven lighting, sensor noise and JPEG compression. The exact corners are written to a
 manifest that tools/eval_detection.py understands.
 
+With --backgrounds eval only the background types that tools/train_segmenter.py leaves out
+of training are used (an unseen test set for the network).
+
 Usage:  python tools/make_small_set.py <cord-dir> <background-dir> <out-dir> [--n 150] [--seed 7]
+                                        [--min 0.03] [--max 0.25] [--backgrounds all|train|eval]
+                                        [--labels tools/cord_labels_verified.json]
 """
 import argparse
 import json
@@ -16,13 +21,15 @@ import cv2
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 from app import scanner  # noqa: E402
 
 
-def receipt_textures(cord: Path) -> list[np.ndarray]:
+def receipt_textures(cord: Path, labels: str | None = None) -> list[np.ndarray]:
     out = []
+    verified = json.loads(Path(labels).read_text())["labels"] if labels else {}
     for it in json.loads((cord / "manifest.json").read_text()):
-        roi = it.get("roi")
+        roi = verified[it["name"]]["roi"] if it["name"] in verified else (None if labels else it.get("roi"))
         if not roi:
             continue
         img = cv2.imread(str(cord / "img" / it["name"]))
@@ -92,17 +99,23 @@ def compose(tex, bg, rng, frac_range):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("cord")
-    ap.add_argument("backgrounds")
+    ap.add_argument("backgrounds_dir")
     ap.add_argument("out")
     ap.add_argument("--n", type=int, default=150)
     ap.add_argument("--seed", type=int, default=7)
     ap.add_argument("--min", type=float, default=0.03)
     ap.add_argument("--max", type=float, default=0.25)
+    ap.add_argument("--backgrounds", choices=("all", "train", "eval"), default="all")
+    ap.add_argument("--labels", help="verified corners (tools/cord_labels_verified.json) for cutting out the receipts")
     args = ap.parse_args()
+    from train_segmenter import is_eval_background
 
     rng = np.random.default_rng(args.seed)
-    textures = receipt_textures(Path(args.cord))
-    bgs = [b for b in (cv2.imread(str(p)) for p in sorted(Path(args.backgrounds).glob("*.jpg"))) if b is not None]
+    textures = receipt_textures(Path(args.cord), args.labels)
+    paths = sorted(Path(args.backgrounds_dir).glob("*.jpg"))
+    if args.backgrounds != "all":
+        paths = [p for p in paths if is_eval_background(p.name) == (args.backgrounds == "eval")]
+    bgs = [b for b in (cv2.imread(str(p)) for p in paths) if b is not None]
     out = Path(args.out)
     (out / "img").mkdir(parents=True, exist_ok=True)
     manifest = []
