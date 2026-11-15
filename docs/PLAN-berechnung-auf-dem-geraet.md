@@ -56,6 +56,24 @@ Folgerungen:
 - Ende-zu-Ende Endbetrag: dieselben Bon-Sätze wie im README (Commons 12, SROIE-Prüfteil 93, gerendert Nadeldruck/Thermo) einmal mit Pi-Tesseract (`tools/ocr_dump.py`) und einmal mit `tesseract.js` (Node). Abnahme: nicht schlechter als die Pi-Werte (11/12, 77/93, …); Unterschiede einzeln ansehen.
 - Zeit auf Echtgerät messen; Ziel: schneller als heute inkl. Upload.
 
+### Ergebnis Probelauf (15.11.2026, iPhone, iOS 18.7, Safari, 8 gespeicherte Quittungen)
+`tesseract.js` 5.1.1 mit denselben Sprachdateien (tessdata_fast deu+eng) und denselben vorverarbeiteten Bildern wie auf dem Pi, beide Durchgänge je Bon:
+
+| | Handy (tesseract.js) | Pi (Tesseract 5.5) |
+|---|---|---|
+| reine Rechenzeit, 8 Bons | **802 s** (16–90 s je Durchgang) | **54 s** (1,4–7,4 s je Durchgang) |
+| Endbetrag = gespeicherter Betrag | 5/8 | 6/8 |
+| gleicher Betragsvorschlag wie der Pi | 7/8 | – |
+
+Textübereinstimmung Handy ↔ Pi je Durchgang zwischen 8 % und 97 %, also trotz gleicher Engine und Sprachdaten teils stark abweichend.
+
+Entscheidung: Die Texterkennung bleibt in der Web-App auf dem Pi. Im Browser ist Tesseract auf dem iPhone rund 15-mal langsamer und nicht genauer. Für die native App ist die Texterkennung des Betriebssystems (Apple Vision bzw. ML Kit) vorgesehen, nicht Tesseract. Die Testseite wurde wieder entfernt.
+
+Folgen für die übrigen Schritte:
+- Schritt 1 (Erkennung im Browser) spart laut Schritt 0 höchstens ≈ 0,5–1 s, weil der Upload für die Texterkennung ohnehin nötig ist. Er wird für die Web-App zurückgestellt und erst in der nativen App umgesetzt (dort mit Core ML / ONNX Runtime Mobile).
+- Schritt 3 (nur Ergebnis hochladen) setzt Schritt 1 und 2 voraus und entfällt für die Web-App.
+- Weiterhin sinnvoll als Vorbereitung für die native App: die sprachneutralen Referenzdaten (Ecken je Prüfbild, Golden-Tests Text → Vorschläge aus `app/amount.py`/`app/ocr.py`), damit die Portierung nach Kotlin/Swift prüfbar ist.
+
 ## Schritt 3 – Nur Ergebnis hochladen, Pi als Rückfall (1 Tag)
 - Neuer Endpunkt in `app/main.py`: `POST /api/receipts/upload` (multipart: Original-JPEG ≤ 2800 px, Zuschnitt-JPEG, JSON mit Ecken, OCR-Text, Feldern). Speichert wie `create_receipt` (Originals, Images, Thumbs, DB inkl. `corners`, `ocr_text`), validiert Ecken/Felder mit den bestehenden Pydantic-Modellen.
 - Frontend-Ablauf: Foto → lokal erkennen → Eckeneditor mit lokalem Bild → lokal zuschneiden + OCR → Formular → ein Upload. Bei fehlender Fähigkeit oder Fehler: bisheriger Weg über `/api/scans` (bleibt unverändert).
@@ -77,6 +95,6 @@ Folgerungen:
 |---|---|---|---|
 | Vorab – Plan im Projekt | erledigt | 15.11.2026 | dieser Commit |
 | 0 – Messen | erledigt | 15.11.2026 | siehe „Ergebnis Schritt 0“; lokales Bild im Eckeneditor eingebaut |
-| 1 – Quittungsform im Browser | offen | | |
-| 2 – Texterkennung und Endbetrag im Browser | Probelauf in Arbeit | 15.11.2026 | Testseite /ocr-probe.html (tesseract.js 5.1.1, Pi-Sprachdaten) |
-| 3 – Nur Ergebnis hochladen, Pi als Rückfall | offen | | |
+| 1 – Quittungsform im Browser | zurückgestellt bis zur nativen App | 15.11.2026 | Gewinn ≤ 1 s, siehe Probelauf |
+| 2 – Texterkennung und Endbetrag im Browser | **verworfen** nach Probelauf | 15.11.2026 | iPhone 15× langsamer als der Pi, siehe „Ergebnis Probelauf“ |
+| 3 – Nur Ergebnis hochladen, Pi als Rückfall | entfällt für die Web-App | 15.11.2026 | setzt Schritt 1 und 2 voraus |
