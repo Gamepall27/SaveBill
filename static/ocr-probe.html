@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Probelauf Texterkennung</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body { padding: 16px; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; margin-top: 12px; }
+    th, td { padding: 6px 4px; border-bottom: 1px solid #ddd; text-align: right; }
+    th:first-child, td:first-child { text-align: left; }
+    #log { font-size: 13px; color: #555; white-space: pre-wrap; }
+  </style>
+  <!-- Probelauf: tesseract.js (Tesseract 5, WASM) mit denselben Sprachdateien wie auf dem Pi -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js"></script>
+</head>
+<body>
+  <h1>Probelauf: Texterkennung auf dem Handy</h1>
+  <p class="muted">Erkennt deine gespeicherten Quittungen einmal hier auf dem Gerät und vergleicht Zeit und Ergebnis mit dem Pi.
+    Bitte die Seite geöffnet lassen, bis „Fertig“ erscheint.</p>
+  <button class="btn primary" id="start">Probelauf starten</button>
+  <p id="log"></p>
+  <table id="res" hidden>
+    <thead><tr><th>Bon</th><th>Handy s</th><th>Pi s</th><th>Text gleich</th><th>Betrag Handy</th><th>Betrag Pi</th></tr></thead>
+    <tbody></tbody>
+  </table>
+  <script>
+    const log = (t) => (document.getElementById("log").textContent = t);
+    const fmt = (ms) => (ms / 1000).toFixed(1);
+    const ok = (v) => (v == null ? "–" : v ? "✓" : "✗");
+    document.getElementById("start").onclick = async (ev) => {
+      ev.target.disabled = true;
+      try {
+        log("Lade Texterkennung (einmalig ca. 10 MB)…");
+        const t0 = performance.now();
+        const worker = await Tesseract.createWorker("deu+eng", 1, { langPath: "/api/probe/tessdata", gzip: false });
+        const loadMs = Math.round(performance.now() - t0);
+        const ids = await (await fetch("/api/probe/receipts")).json();
+        const body = document.querySelector("#res tbody");
+        document.getElementById("res").hidden = false;
+        let sumPhone = 0, sumPi = 0;
+        for (const [i, id] of ids.entries()) {
+          const texts = {}, ms = {};
+          for (const [n, psm] of [[1, "4"], [2, "6"]]) {
+            log(`Bon ${i + 1}/${ids.length}, Durchgang ${n}: Handy rechnet…`);
+            const img = await (await fetch(`/api/probe/${id}/pass${n}.png`)).blob();
+            await worker.setParameters({ tessedit_pageseg_mode: psm });
+            const t = performance.now();
+            const { data } = await worker.recognize(img);
+            ms[n] = Math.round(performance.now() - t);
+            texts[n] = data.text;
+          }
+          log(`Bon ${i + 1}/${ids.length}: Pi rechnet zum Vergleich…`);
+          const r = await (await fetch(`/api/probe/${id}/compare`, {
+            method: "POST", headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ index: i, texts, ms, load_ms: i === 0 ? loadMs : null, ua: navigator.userAgent }),
+          })).json();
+          const p = Object.values(r.passes);
+          const phone = p.reduce((s, x) => s + x.phone_ms, 0), pi = p.reduce((s, x) => s + x.pi_ms, 0);
+          sumPhone += phone; sumPi += pi;
+          const sim = Math.min(...p.map((x) => x.text_similarity));
+          body.insertAdjacentHTML("beforeend",
+            `<tr><td>${i + 1}</td><td>${fmt(phone)}</td><td>${fmt(pi)}</td><td>${Math.round(sim * 100)} %</td>` +
+            `<td>${ok(r.phone_amount_ok)}</td><td>${ok(r.pi_amount_ok)}</td></tr>`);
+        }
+        await worker.terminate();
+        body.insertAdjacentHTML("beforeend",
+          `<tr><th>Summe</th><th>${fmt(sumPhone)}</th><th>${fmt(sumPi)}</th><th></th><th></th><th></th></tr>`);
+        log(`Fertig. Laden der Texterkennung: ${fmt(loadMs)} s. Zeiten je Bon = beide Durchgänge zusammen.`);
+      } catch (e) {
+        log("Fehler: " + e.message);
+        ev.target.disabled = false;
+      }
+    };
+  </script>
+</body>
+</html>
