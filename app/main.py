@@ -13,7 +13,7 @@ from fastapi.responses import FileResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field, field_validator
 
-from . import config, db, export, ocr, scanner
+from . import config, db, export, ocr, probe, scanner
 
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger("savebill")
@@ -379,4 +379,5 @@ def _value_error(_, exc: ValueError):
     return JSONResponse({"detail": str(exc)}, status_code=400)
 
 
+app.include_router(probe.router)  # temporary OCR trial run, see app/probe.py
 app.mount("/", StaticFiles(directory=config.STATIC_DIR, html=True), name="static")

@@ -78,5 +78,5 @@ Folgerungen:
 | Vorab – Plan im Projekt | erledigt | 15.11.2026 | dieser Commit |
 | 0 – Messen | erledigt | 15.11.2026 | siehe „Ergebnis Schritt 0“; lokales Bild im Eckeneditor eingebaut |
 | 1 – Quittungsform im Browser | offen | | |
-| 2 – Texterkennung und Endbetrag im Browser | offen | | |
+| 2 – Texterkennung und Endbetrag im Browser | Probelauf in Arbeit | 15.11.2026 | Testseite /ocr-probe.html (tesseract.js 5.1.1, Pi-Sprachdaten) |
 | 3 – Nur Ergebnis hochladen, Pi als Rückfall | offen | | |
