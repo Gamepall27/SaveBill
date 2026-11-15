@@ -1,0 +1,120 @@
+{
+ "note": "Hand-picked evaluation backgrounds (Wikimedia Commons), excluded from training via train_segmenter.EVAL_BACKGROUNDS. Download with tools/fetch_backgrounds.py and keep only these files; then make_small_set.py --seed 11 (small_eval) and --seed 23 --max 0.7 (mixed_eval).",
+ "backgrounds": [
+  {
+   "file": "car_seat_upholstery_04.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Classic_car_interior_with_old_dashboard_and_worn_upholstery_in_a_neglected_state.jpg",
+   "license": "CC BY 2.0"
+  },
+  {
+   "file": "car_seat_upholstery_05.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:1971_AMC_Ambassador_sedan_with_optional_Custom_upholstery_at_Rambler_Ranch.jpg",
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "file": "car_seat_upholstery_07.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:1940_Hudson_Coupe_in_burgundy_at_2021_Macungie_show_6of7.jpg",
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "file": "granite_countertop_01.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Syrup_on_Granite_3626.jpg",
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "file": "granite_countertop_02.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Syrup_on_Granite_3628.jpg",
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "file": "granite_countertop_03.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Syrup_on_Granite_3629.jpg",
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "file": "granite_countertop_04.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Granite_for_Countertops_07.jpg",
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "file": "granite_countertop_05.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Granite_for_Countertops_04.jpg",
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "file": "granite_countertop_06.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Granite_for_Countertops_11.jpg",
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "file": "granite_countertop_07.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Granite_for_Countertops_05.jpg",
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "file": "jacket_fabric_03.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Black_worn_leather_jacket_detail_1.jpg",
+   "license": "CC0"
+  },
+  {
+   "file": "jacket_fabric_04.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Jacket_(AM_8330-7).jpg",
+   "license": "CC BY 4.0"
+  },
+  {
+   "file": "jacket_fabric_06.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Jacket_(AM_8330-19).jpg",
+   "license": "CC BY 4.0"
+  },
+  {
+   "file": "jacket_fabric_07.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Jacket_(AM_8330-15).jpg",
+   "license": "CC BY 4.0"
+  },
+  {
+   "file": "lace_tablecloth_02.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Tablecloth_Superstar.jpg",
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "file": "lace_tablecloth_04.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Crochet_white_tablecloth.jpg",
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "file": "lace_tablecloth_05.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Crochet_small_Swedish_tablecloth_about_1930_detail.jpg",
+   "license": "Public domain"
+  },
+  {
+   "file": "lace_tablecloth_06.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Crocheted_tablecloth_White.jpg",
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "file": "lace_tablecloth_07.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Tablecloth_(AM_12063-2).jpg",
+   "license": "CC BY 4.0"
+  },
+  {
+   "file": "laminate_flooring_06.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Laminaat.jpg",
+   "license": "Public domain"
+  },
+  {
+   "file": "newspaper_page_03.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Front_page_of_newspaper_Wilnaer_Zeitung_with_Lithuanian_Vytis_(Waykimas),_published_on_12_April_1918.jpg",
+   "license": "CC0"
+  },
+  {
+   "file": "newspaper_page_06.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Vitosha_newspaper_front_page.jpg",
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "file": "newspaper_page_07.jpg",
+   "source": "https://commons.wikimedia.org/wiki/File:Wash_Post_cover_page_Aug_9_1925_cover_page.jpg",
+   "license": "Public domain"
+  }
+ ]
+}

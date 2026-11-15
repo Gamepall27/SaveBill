@@ -98,3 +98,4 @@ Folgen für die übrigen Schritte:
 | 1 – Quittungsform im Browser | zurückgestellt bis zur nativen App | 15.11.2026 | Gewinn ≤ 1 s, siehe Probelauf |
 | 2 – Texterkennung und Endbetrag im Browser | **verworfen** nach Probelauf | 15.11.2026 | iPhone 15× langsamer als der Pi, siehe „Ergebnis Probelauf“ |
 | 3 – Nur Ergebnis hochladen, Pi als Rückfall | entfällt für die Web-App | 15.11.2026 | setzt Schritt 1 und 2 voraus |
+| Referenzdaten für die native App | erledigt | 15.11.2026 | `tests/conformance/` (43 Text-Fälle, 5 Netz-Beispiele, 6 synthetische und 77 CORD-Fotos), `tools/export_conformance.py`, geprüft durch `tests/test_conformance.py` |

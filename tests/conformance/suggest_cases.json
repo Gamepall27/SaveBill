@@ -1,0 +1,7949 @@
+[
+ {
+  "id": "s000",
+  "source": "test_ocr.py:8",
+  "texts": [
+   "REWE Markt GmbH\nHauptstr. 12\n12345 Musterstadt\nUID Nr.: DE123456789\nEUR\nMILCH 1,5% 1,19 B\nBROT 2,49 B\nKAFFEE 6,99 A\n--------------------------\nSUMME EUR 12,52\nGeg. BAR EUR 20,00\nRückgeld BAR EUR 7,48\nSteuer % Netto Steuer Brutto\nA= 19,0% 5,87 1,12 6,99\n13.11.26 14:32 Bon-Nr.:1234\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "REWE Markt",
+   "date": "2026-11-13",
+   "category": "Lebensmittel",
+   "amount": 12.52,
+   "alternatives": [],
+   "confidence": 13.821429,
+   "ranked": [
+    [
+     12.52,
+     16.321429
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "REWE Markt GmbH",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Hauptstr. 12",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "12345 Musterstadt",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "UID Nr.: DE123456789",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "EUR",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "MILCH 1,5% 1,19 B",
+     "amounts": [
+      1.19
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "BROT 2,49 B",
+     "amounts": [
+      2.49
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "KAFFEE 6,99 A",
+     "amounts": [
+      6.99
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "--------------------------",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "SUMME EUR 12,52",
+     "amounts": [
+      12.52
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Geg. BAR EUR 20,00",
+     "amounts": [
+      20.0
+     ],
+     "kind": "cash",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Rückgeld BAR EUR 7,48",
+     "amounts": [
+      7.48
+     ],
+     "kind": "change",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Steuer % Netto Steuer Brutto",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "A= 19,0% 5,87 1,12 6,99",
+     "amounts": [
+      5.87,
+      1.12,
+      6.99
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "13.11.26 14:32 Bon-Nr.:1234",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s001",
+  "source": "test_ocr.py:25",
+  "texts": [
+   "*** Willkommen ***\nARAL Tankstelle\nMusterweg 3\nSuper E10 45,12 l 1,799 81,17\nGesamtbetrag EUR 81,17\ngirocard 81,17\nDatum: 2026-10-02\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "ARAL Tankstelle",
+   "date": "2026-10-02",
+   "category": "Tanken",
+   "amount": 81.17,
+   "alternatives": [],
+   "confidence": 13.416667,
+   "ranked": [
+    [
+     81.17,
+     15.916667
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "*** Willkommen ***",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ARAL Tankstelle",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Musterweg 3",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Super E10 45,12 l 1,799 81,17",
+     "amounts": [
+      45.12,
+      81.17
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Gesamtbetrag EUR 81,17",
+     "amounts": [
+      81.17
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "girocard 81,17",
+     "amounts": [
+      81.17
+     ],
+     "kind": "card",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Datum: 2026-10-02",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s002",
+  "source": "test_ocr.py:34",
+  "texts": [
+   "Pizzeria Da Mario\nMargherita 8,50\nCola 3,20\nTiramisu 5,90\n04/09/2026\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Pizzeria Da Mario",
+   "date": "2026-09-04",
+   "category": "Restaurant",
+   "amount": 8.5,
+   "alternatives": [
+    5.9,
+    3.2
+   ],
+   "confidence": 0.0,
+   "ranked": [
+    [
+     8.5,
+     0.0
+    ],
+    [
+     5.9,
+     0.0
+    ],
+    [
+     3.2,
+     0.0
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "Pizzeria Da Mario",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Margherita 8,50",
+     "amounts": [
+      8.5
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Cola 3,20",
+     "amounts": [
+      3.2
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Tiramisu 5,90",
+     "amounts": [
+      5.9
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "04/09/2026",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s003",
+  "source": "test_ocr.py:97",
+  "texts": [
+   "LIDL\nBananen 1,29 A\nMilch 3,5% 0,99 A\n2 x 0,99\nDuschgel 1,95 B\nzu zahlen 5,22\nKreditkarte 5,22\nMWST% MWST + Netto = Brutto\nA 7% 0,22 3,05 3,27\nB 19% 0,31 1,64 1,95\nSumme 0,53 4,69 5,22\n16.02.18 15:25 Uhr\nKartenzahlung\nEUR 5,22\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "LIDL",
+   "date": "2018-02-16",
+   "category": "Lebensmittel",
+   "amount": 5.22,
+   "alternatives": [],
+   "confidence": 19.5,
+   "ranked": [
+    [
+     5.22,
+     22.0
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "LIDL",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Bananen 1,29 A",
+     "amounts": [
+      1.29
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Milch 3,5% 0,99 A",
+     "amounts": [
+      0.99
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "2 x 0,99",
+     "amounts": [
+      0.99
+     ],
+     "kind": "ignore",
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Duschgel 1,95 B",
+     "amounts": [
+      1.95
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "zu zahlen 5,22",
+     "amounts": [
+      5.22
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Kreditkarte 5,22",
+     "amounts": [
+      5.22
+     ],
+     "kind": "card",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "MWST% MWST + Netto = Brutto",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "A 7% 0,22 3,05 3,27",
+     "amounts": [
+      0.22,
+      3.05,
+      3.27
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "B 19% 0,31 1,64 1,95",
+     "amounts": [
+      0.31,
+      1.64,
+      1.95
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "Summe 0,53 4,69 5,22",
+     "amounts": [
+      0.53,
+      4.69,
+      5.22
+     ],
+     "kind": "sum",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "16.02.18 15:25 Uhr",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Kartenzahlung",
+     "amounts": [
+      5.22
+     ],
+     "kind": "card",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": true
+    },
+    {
+     "raw": "EUR 5,22",
+     "amounts": [
+      5.22
+     ],
+     "kind": null,
+     "orphan": true,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s004",
+  "source": "test_ocr.py:184",
+  "texts": [
+   "LIDL\nKARTOFFELN 2 KG 0:79 B\nERDBEER KONF 0:99 B\nEIER 10ER 0,65 B\nH-MILCH 3,5 0,85 B\n5,32\nSumme 8 Pos.\nJOGHURT 0,29 B\nCROISSANT 0,89 B\n9,33\nSumme 17 Pos.\n50,00\nGegeben BAR EUR\n40,67\nRückgeld EUR\nMWST B 7,00% 9,33 enth. 0,61\n9397/002/02 26.06.02 18:11\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "LIDL",
+   "date": "2002-06-26",
+   "category": "Lebensmittel",
+   "amount": 9.33,
+   "alternatives": [
+    5.32
+   ],
+   "confidence": 12.78125,
+   "ranked": [
+    [
+     9.33,
+     19.96875
+    ],
+    [
+     5.32,
+     4.6875
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "LIDL",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "KARTOFFELN 2 KG 0:79 B",
+     "amounts": [
+      0.79
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ERDBEER KONF 0:99 B",
+     "amounts": [
+      0.99
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "EIER 10ER 0,65 B",
+     "amounts": [
+      0.65
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "H-MILCH 3,5 0,85 B",
+     "amounts": [
+      0.85
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "5,32",
+     "amounts": [
+      5.32
+     ],
+     "kind": null,
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Summe 8 Pos.",
+     "amounts": [
+      5.32
+     ],
+     "kind": "sum",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": true
+    },
+    {
+     "raw": "JOGHURT 0,29 B",
+     "amounts": [
+      0.29
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "CROISSANT 0,89 B",
+     "amounts": [
+      0.89
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "9,33",
+     "amounts": [
+      9.33
+     ],
+     "kind": null,
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Summe 17 Pos.",
+     "amounts": [
+      9.33
+     ],
+     "kind": "sum",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": true
+    },
+    {
+     "raw": "50,00",
+     "amounts": [
+      50.0
+     ],
+     "kind": null,
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Gegeben BAR EUR",
+     "amounts": [
+      50.0
+     ],
+     "kind": "cash",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": true
+    },
+    {
+     "raw": "40,67",
+     "amounts": [
+      40.67
+     ],
+     "kind": null,
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Rückgeld EUR",
+     "amounts": [
+      40.67
+     ],
+     "kind": "change",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": true
+    },
+    {
+     "raw": "MWST B 7,00% 9,33 enth. 0,61",
+     "amounts": [
+      7.0,
+      9.33,
+      0.61
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "9397/002/02 26.06.02 18:11",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s005",
+  "source": "test_ocr.py:119",
+  "texts": [
+   "SUMME [ 3] EUR 34,97\nMwSt.-Senkung -0,88\nSumme EUR 34,09\nBar Euro EUR 50,09\nRückgeld EUR -16,00\nMwSt D 16,00% 29,39 4,70"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": null,
+   "date": null,
+   "category": null,
+   "amount": 34.09,
+   "alternatives": [
+    34.97,
+    50.09
+   ],
+   "confidence": 9.7,
+   "ranked": [
+    [
+     34.09,
+     16.2
+    ],
+    [
+     34.97,
+     4.0
+    ],
+    [
+     50.09,
+     1.3
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "SUMME [ 3] EUR 34,97",
+     "amounts": [
+      34.97
+     ],
+     "kind": "sum",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "MwSt.-Senkung -0,88",
+     "amounts": [
+      -0.88
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Summe EUR 34,09",
+     "amounts": [
+      34.09
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Bar Euro EUR 50,09",
+     "amounts": [
+      50.09
+     ],
+     "kind": "cash",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Rückgeld EUR -16,00",
+     "amounts": [
+      -16.0
+     ],
+     "kind": "change",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "MwSt D 16,00% 29,39 4,70",
+     "amounts": [
+      16.0,
+      29.39,
+      4.7
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s006",
+  "source": "test_ocr.py:129",
+  "texts": [
+   "MIO MATE BANANE 0,69 A\nPFAND 0,15 EUR 0,15 A\nCLUB MATE 0,89 A\nPFAND 0,15 EUR 0,15 A\nGeg. BAR EUR 2,00\nR?ckgeld BAR EUR 0,12\n16. 02. 2018 15:44 Bon-Nr.:445"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Mio Mate Banane 0 69 A",
+   "date": "2018-02-16",
+   "category": null,
+   "amount": 1.88,
+   "alternatives": [
+    2.0
+   ],
+   "confidence": 2.166667,
+   "ranked": [
+    [
+     1.88,
+     3.5
+    ],
+    [
+     2.0,
+     1.333333
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "MIO MATE BANANE 0,69 A",
+     "amounts": [
+      0.69
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "PFAND 0,15 EUR 0,15 A",
+     "amounts": [
+      0.15,
+      0.15
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "CLUB MATE 0,89 A",
+     "amounts": [
+      0.89
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "PFAND 0,15 EUR 0,15 A",
+     "amounts": [
+      0.15,
+      0.15
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Geg. BAR EUR 2,00",
+     "amounts": [
+      2.0
+     ],
+     "kind": "cash",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "R?ckgeld BAR EUR 0,12",
+     "amounts": [
+      0.12
+     ],
+     "kind": "change",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "16. 02. 2018 15:44 Bon-Nr.:445",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s007",
+  "source": "test_ocr.py:140",
+  "texts": [
+   "Kaffee 6,99 A\nBrot 2,49 A\nSumme 9,48\nBar 50,00\nRückgeld 40,52\nSUMME MWST 0,62 8,86"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": null,
+   "date": null,
+   "category": null,
+   "amount": 9.48,
+   "alternatives": [],
+   "confidence": 15.7,
+   "ranked": [
+    [
+     9.48,
+     18.2
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "Kaffee 6,99 A",
+     "amounts": [
+      6.99
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Brot 2,49 A",
+     "amounts": [
+      2.49
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Summe 9,48",
+     "amounts": [
+      9.48
+     ],
+     "kind": "sum",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Bar 50,00",
+     "amounts": [
+      50.0
+     ],
+     "kind": "cash",
+     "orphan": true,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Rückgeld 40,52",
+     "amounts": [
+      40.52
+     ],
+     "kind": "change",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "SUMME MWST 0,62 8,86",
+     "amounts": [
+      0.62,
+      8.86
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s008",
+  "source": "test_ocr.py:151",
+  "texts": [
+   "Pizza 12,50\nSumme $1,26\nVISA 51,26\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": null,
+   "date": null,
+   "category": null,
+   "amount": 51.26,
+   "alternatives": [],
+   "confidence": 11.5,
+   "ranked": [
+    [
+     51.26,
+     14.0
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "Pizza 12,50",
+     "amounts": [
+      12.5
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Summe $1,26",
+     "amounts": [
+      51.26
+     ],
+     "kind": "sum",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "VISA 51,26",
+     "amounts": [
+      51.26
+     ],
+     "kind": "card",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s009",
+  "source": "test_ocr.py:156",
+  "texts": [
+   "Tomaten 2,49 A\n0,374 kg x 9,90 EUR/kg\nSalatbar 3,70 A\n3 x 1,29\nWasser 3,87 B\nSie haben 12,50 EUR gespart!\nSUMME EUR 10,06\n24.12.2025 18:30"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Salatbar 3 70 A",
+   "date": "2025-12-24",
+   "category": null,
+   "amount": 10.06,
+   "alternatives": [],
+   "confidence": 12.428571,
+   "ranked": [
+    [
+     10.06,
+     14.928571
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "Tomaten 2,49 A",
+     "amounts": [
+      2.49
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "0,374 kg x 9,90 EUR/kg",
+     "amounts": [
+      9.9
+     ],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Salatbar 3,70 A",
+     "amounts": [
+      3.7
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "3 x 1,29",
+     "amounts": [
+      1.29
+     ],
+     "kind": "ignore",
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Wasser 3,87 B",
+     "amounts": [
+      3.87
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Sie haben 12,50 EUR gespart!",
+     "amounts": [
+      12.5
+     ],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "SUMME EUR 10,06",
+     "amounts": [
+      10.06
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "24.12.2025 18:30",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s010",
+  "source": "test_ocr.py:168",
+  "texts": [
+   "Brot 2,49\nSumme ?\nEC-Karte\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Summe",
+   "date": null,
+   "category": null,
+   "amount": 2.49,
+   "alternatives": [],
+   "confidence": 0.0,
+   "ranked": [
+    [
+     2.49,
+     0.0
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "Brot 2,49",
+     "amounts": [
+      2.49
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Summe ?",
+     "amounts": [],
+     "kind": "sum",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "EC-Karte",
+     "amounts": [],
+     "kind": "card",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s011",
+  "source": "test_ocr.py:169",
+  "texts": [
+   "Brot 2,49\nSumme 7,48\nEC-Karte 7,48\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": null,
+   "date": null,
+   "category": null,
+   "amount": 7.48,
+   "alternatives": [],
+   "confidence": 11.5,
+   "ranked": [
+    [
+     7.48,
+     14.0
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "Brot 2,49",
+     "amounts": [
+      2.49
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Summe 7,48",
+     "amounts": [
+      7.48
+     ],
+     "kind": "sum",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "EC-Karte 7,48",
+     "amounts": [
+      7.48
+     ],
+     "kind": "card",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s012",
+  "source": "test_ocr.py:217",
+  "texts": [
+   "BROT 2,49 B\nKAFFEE 4,99 B\n50,00\nGegeben BAR EUR\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Gegeben BAR EUR",
+   "date": null,
+   "category": null,
+   "amount": 4.99,
+   "alternatives": [
+    2.49
+   ],
+   "confidence": 0.0,
+   "ranked": [
+    [
+     4.99,
+     0.0
+    ],
+    [
+     2.49,
+     0.0
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "BROT 2,49 B",
+     "amounts": [
+      2.49
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "KAFFEE 4,99 B",
+     "amounts": [
+      4.99
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "50,00",
+     "amounts": [
+      50.0
+     ],
+     "kind": null,
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Gegeben BAR EUR",
+     "amounts": [
+      50.0
+     ],
+     "kind": "cash",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": true
+    }
+   ]
+  }
+ },
+ {
+  "id": "s013",
+  "source": "test_ocr.py:222",
+  "texts": [
+   "Brot 2,49 A\nMilch 1,19 A\nKaffee 6,99 B\n10,67\nBar 20,00\nRückgeld 9,33"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Rückgeld 9 33",
+   "date": null,
+   "category": null,
+   "amount": 10.67,
+   "alternatives": [],
+   "confidence": 3.8,
+   "ranked": [
+    [
+     10.67,
+     3.8
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "Brot 2,49 A",
+     "amounts": [
+      2.49
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Milch 1,19 A",
+     "amounts": [
+      1.19
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Kaffee 6,99 B",
+     "amounts": [
+      6.99
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "10,67",
+     "amounts": [
+      10.67
+     ],
+     "kind": null,
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Bar 20,00",
+     "amounts": [
+      20.0
+     ],
+     "kind": "cash",
+     "orphan": true,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Rückgeld 9,33",
+     "amounts": [
+      9.33
+     ],
+     "kind": "change",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s014",
+  "source": "test_ocr.py:232",
+  "texts": [
+   "KEDAI MAKAN\nNASI LEMAK 1 x 4.50 4.50\nTEH TARIK 1 x 2.20 2.20\nTOTAL QTY: 2\nSUB TOTAL 6.70\nROUNDING 0.00\nTOTAL (RM) 6.70\nCASH 10.00\nCHANGE 3.30"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Kedai Makan",
+   "date": null,
+   "category": null,
+   "amount": 6.7,
+   "alternatives": [],
+   "confidence": 17.375,
+   "ranked": [
+    [
+     6.7,
+     19.875
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "KEDAI MAKAN",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "NASI LEMAK 1 x 4.50 4.50",
+     "amounts": [
+      4.5,
+      4.5
+     ],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "TEH TARIK 1 x 2.20 2.20",
+     "amounts": [
+      2.2,
+      2.2
+     ],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "TOTAL QTY: 2",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "SUB TOTAL 6.70",
+     "amounts": [
+      6.7
+     ],
+     "kind": "sub",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ROUNDING 0.00",
+     "amounts": [
+      0.0
+     ],
+     "kind": "ignore",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "TOTAL (RM) 6.70",
+     "amounts": [
+      6.7
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "CASH 10.00",
+     "amounts": [
+      10.0
+     ],
+     "kind": "cash",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "CHANGE 3.30",
+     "amounts": [
+      3.3
+     ],
+     "kind": "change",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s015",
+  "source": "test_ocr.py:59",
+  "texts": [
+   "2026-11-13"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": null,
+   "date": "2026-11-13",
+   "category": null,
+   "amount": null,
+   "alternatives": [],
+   "confidence": 0.0,
+   "ranked": [],
+   "lines": [
+    {
+     "raw": "2026-11-13",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s016",
+  "source": "test_ocr.py:63",
+  "texts": [
+   "2026-10-02"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": null,
+   "date": "2026-10-02",
+   "category": null,
+   "amount": null,
+   "alternatives": [],
+   "confidence": 0.0,
+   "ranked": [],
+   "lines": [
+    {
+     "raw": "2026-10-02",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s017",
+  "source": "test_ocr.py:67",
+  "texts": [
+   "2026-09-04"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": null,
+   "date": "2026-09-04",
+   "category": null,
+   "amount": null,
+   "alternatives": [],
+   "confidence": 0.0,
+   "ranked": [],
+   "lines": [
+    {
+     "raw": "2026-09-04",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s018",
+  "source": "test_ocr.py:55",
+  "texts": [
+   "SUMME 1.234,56"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": null,
+   "date": null,
+   "category": null,
+   "amount": 1234.56,
+   "alternatives": [],
+   "confidence": 6.0,
+   "ranked": [
+    [
+     1234.56,
+     8.5
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "SUMME 1.234,56",
+     "amounts": [
+      1234.56
+     ],
+     "kind": "sum",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s019",
+  "source": "test_ocr.py:67",
+  "texts": [
+   "99.99.2026 then 04/09/2026"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": null,
+   "date": "2026-09-04",
+   "category": null,
+   "amount": null,
+   "alternatives": [],
+   "confidence": 0.0,
+   "ranked": [],
+   "lines": [
+    {
+     "raw": "99.99.2026 then 04/09/2026",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s020",
+  "source": "test_ocr.py:81",
+  "texts": [
+   "BAUHAUS HAMBURG\nStr. 1"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Bauhaus Hamburg",
+   "date": null,
+   "category": "Baumarkt",
+   "amount": null,
+   "alternatives": [],
+   "confidence": 0.0,
+   "ranked": [],
+   "lines": [
+    {
+     "raw": "BAUHAUS HAMBURG",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Str. 1",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s021",
+  "source": "test_ocr.py:211",
+  "texts": [
+   "KARTOFFELN 2 KG 0:79 B"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": null,
+   "date": null,
+   "category": null,
+   "amount": 0.79,
+   "alternatives": [],
+   "confidence": 0.0,
+   "ranked": [
+    [
+     0.79,
+     0.0
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "KARTOFFELN 2 KG 0:79 B",
+     "amounts": [
+      0.79
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s022",
+  "source": "test_ocr.py:212",
+  "texts": [
+   "26.06.02 18:11"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": null,
+   "date": "2002-06-26",
+   "category": null,
+   "amount": null,
+   "alternatives": [],
+   "confidence": 0.0,
+   "ranked": [],
+   "lines": [
+    {
+     "raw": "26.06.02 18:11",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s023",
+  "source": "test_ocr.py:213",
+  "texts": [
+   "Datum 16.02.18 15:25 Uhr"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": null,
+   "date": "2018-02-16",
+   "category": null,
+   "amount": null,
+   "alternatives": [],
+   "confidence": 0.0,
+   "ranked": [],
+   "lines": [
+    {
+     "raw": "Datum 16.02.18 15:25 Uhr",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s024",
+  "source": "fixtures/ocr/ecenter_1484.txt",
+  "texts": [
+   "SCHWEINFURT _\nOSKAR-VON-MILLER-STR.6\n\nRADIESCHEN 0,59\nKAESEAUFSCH. 1,39\nBAUCHSPECK 1,19\nBAUCHSPECK 1,19\nDORNFELDE 0,98\nCLEMENTINEN 2,49\n[8 BLUE 3,50\n_[8M BLUE 3,50\nSUMME 14.84 *\nRAR 50,00\nRUCKGELD EUR 35/16\nENTHALTENE MEHRNERTSTEUER\nMUST. NETTO\n7,00 % 0,45 6,40\n19:00 % 1,28 6,71\nSUMME MWST 1,73 13,11\n\nEDEKA HANDELSGESELLSCHAFT _\n\nNORDBAYERN-SACHSEN-THURINGEN MBH\n\nSTEUERNUMMER: = 257/115/30471\nQUITTUNG\n\nNUTZEN STE DIE EDECARD\nPUNKTE SAMMELN+PRAMIEN ERWERBEN\n\nIHR EINKAUF WÄRE UNS\n1 BONUSPUNKTE WERT GEWESEN  !\n08.12.07 16:27 37589 43 4 8500\n\nRN ‚ BEDIENTE SIE:\nVIELEN DANK FÜR. THREN ETNKAUF!\nAUF WIEDERSEHEN IM E-CENTER\nUNSERE ÖFFNUNGSZEITEN FÜR SIE:\nMONTAG-SAMSTAG: 08.00-20 .00LUHR\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Schweinfurt _",
+   "date": "2007-12-08",
+   "category": "Lebensmittel",
+   "amount": 14.84,
+   "alternatives": [],
+   "confidence": 6.16129,
+   "ranked": [
+    [
+     14.84,
+     8.66129
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "SCHWEINFURT _",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "OSKAR-VON-MILLER-STR.6",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "RADIESCHEN 0,59",
+     "amounts": [
+      0.59
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "KAESEAUFSCH. 1,39",
+     "amounts": [
+      1.39
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "BAUCHSPECK 1,19",
+     "amounts": [
+      1.19
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "BAUCHSPECK 1,19",
+     "amounts": [
+      1.19
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "DORNFELDE 0,98",
+     "amounts": [
+      0.98
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "CLEMENTINEN 2,49",
+     "amounts": [
+      2.49
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "[8 BLUE 3,50",
+     "amounts": [
+      3.5
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "_[8M BLUE 3,50",
+     "amounts": [
+      3.5
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "SUMME 14.84 *",
+     "amounts": [
+      14.84
+     ],
+     "kind": "sum",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "RAR 50,00",
+     "amounts": [
+      50.0
+     ],
+     "kind": null,
+     "orphan": true,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "RUCKGELD EUR 35/16",
+     "amounts": [
+      50.0
+     ],
+     "kind": "change",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": true
+    },
+    {
+     "raw": "ENTHALTENE MEHRNERTSTEUER",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "MUST. NETTO",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "7,00 % 0,45 6,40",
+     "amounts": [
+      7.0,
+      0.45,
+      6.4
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "19:00 % 1,28 6,71",
+     "amounts": [
+      1.28,
+      6.71
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "SUMME MWST 1,73 13,11",
+     "amounts": [
+      1.73,
+      13.11
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "EDEKA HANDELSGESELLSCHAFT _",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "NORDBAYERN-SACHSEN-THURINGEN MBH",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "STEUERNUMMER: = 257/115/30471",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "QUITTUNG",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "NUTZEN STE DIE EDECARD",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "PUNKTE SAMMELN+PRAMIEN ERWERBEN",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "IHR EINKAUF WÄRE UNS",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "1 BONUSPUNKTE WERT GEWESEN  !",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "08.12.07 16:27 37589 43 4 8500",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "RN ‚ BEDIENTE SIE:",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "VIELEN DANK FÜR. THREN ETNKAUF!",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "AUF WIEDERSEHEN IM E-CENTER",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "UNSERE ÖFFNUNGSZEITEN FÜR SIE:",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "MONTAG-SAMSTAG: 08.00-20 .00LUHR",
+     "amounts": [
+      8.0,
+      20.0
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s025",
+  "source": "fixtures/ocr/edeka_474a.txt",
+  "texts": [
+   "um emcee\n\nWir ®Lebensmiltel.\n\nEDEKA Alte Brauere: Doreen M:ttot e.K.\nWilhelnstr. 41\n16225 Eberswal de .\nTel. 03334/2779989 ;\n\nv\n\nEUR\n\nSALATBAR 3,70 A\n0,374 kg 9,90 ELR/KE\n\nCLUB-M. SRANAD 0, Sl. 0,39 B\nPFAND 0, 15*8\nPosten: $0 wt een nn\nSUMME EUR 4,74\nBar EUR 20,00\nRuckgeld EUR -15,26\nMwSt NETTO WS  JMSATZ\nA 7% 3,46 J, 2¢ 3,79\nB 19% 0,8? 0,1: ~ 04\n\nMit cer DeutschlandCard hätte: S:e\nauf cen Umsatz von: 4,59 EUR\n\n2 Punkte erhalten!\n\nx Position nicht rabattaerech:ist\n\nDatum Uhrzeit Filiale ?os Be: Ror\n\nEs bediente Sie:\n16.02.13 14:15 4036914 304 0%: 843\n\nFrau Deutschl and\n\nSteuernummer: 065/247/0\"6230\n\nQUITTUNG\nVielen Dank für Ih-en Eirksufl\nBe: Sie uns bald wieder!\n\nÖffnungszeiten\nMo. - Sa.: 06:55 - 21: Ihr\n\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "um emcee",
+   "date": "2013-02-16",
+   "category": "Lebensmittel",
+   "amount": 4.74,
+   "alternatives": [],
+   "confidence": 13.703125,
+   "ranked": [
+    [
+     4.74,
+     16.203125
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "um emcee",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Wir ®Lebensmiltel.",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "EDEKA Alte Brauere: Doreen M:ttot e.K.",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Wilhelnstr. 41",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "16225 Eberswal de .",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Tel. 03334/2779989 ;",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "v",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "EUR",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "SALATBAR 3,70 A",
+     "amounts": [
+      3.7
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "0,374 kg 9,90 ELR/KE",
+     "amounts": [
+      9.9
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "CLUB-M. SRANAD 0, Sl. 0,39 B",
+     "amounts": [
+      0.39
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "PFAND 0, 15*8",
+     "amounts": [
+      0.15
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Posten: $0 wt een nn",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "SUMME EUR 4,74",
+     "amounts": [
+      4.74
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Bar EUR 20,00",
+     "amounts": [
+      20.0
+     ],
+     "kind": "cash",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Ruckgeld EUR -15,26",
+     "amounts": [
+      -15.26
+     ],
+     "kind": "change",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "MwSt NETTO WS  JMSATZ",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "A 7% 3,46 J, 2¢ 3,79",
+     "amounts": [
+      3.46,
+      3.79
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "B 19% 0,8? 0,1: ~ 04",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Mit cer DeutschlandCard hätte: S:e",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "auf cen Umsatz von: 4,59 EUR",
+     "amounts": [
+      4.59
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "2 Punkte erhalten!",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "x Position nicht rabattaerech:ist",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Datum Uhrzeit Filiale ?os Be: Ror",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Es bediente Sie:",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "16.02.13 14:15 4036914 304 0%: 843",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Frau Deutschl and",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Steuernummer: 065/247/0\"6230",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "QUITTUNG",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Vielen Dank für Ih-en Eirksufl",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Be: Sie uns bald wieder!",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Öffnungszeiten",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Mo. - Sa.: 06:55 - 21: Ihr",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s026",
+  "source": "fixtures/ocr/fressnapf_3409.txt",
+  "texts": [
+   "Fressnapf Köln-Ehrenfeld\nSubbelratherstraße 387-407\n50825 Köln\nTel.+49 (0) 221 - 558489\nwww. fressnapf. de\n\nSteuernummer :DE2 73010747\n\nEUR\nArt/Ean 4047777185192\n“ANIO Ersatzfilter 2 Stk 9,99 D\nArt/Ean 4047777204985\nANIO Ersatzpumpe 9,99 D\nArt/Ean 4047777149767\nPREM Multicat 121 14,9 D\nSUMME [ 3] . EUR 34, 97\nMwSt. -Senkung -0, 88\nSumme EUR - - 34,09\nBar Euro EUR 50,09\nRückgeld EUR -16, 00\n\nMwSt D 16, 00% 29, 39 4,10\n\nFür diesen Einkauf hätten Sie\n17 PAYBACK Punkt (e) erhalten!\n\nEine PAYBACK Karte erhalten Sie unter:\nwww. fressnapf. de/PAYBACK\n\n0015027041220102000263°\n\nDatum Uhrzeit Filiale Pos Bed Bon\n04.12.20 09:36 0005027 102 5354 0263\n\nDurch die oben aufgeführte MwSt-Senkung\nhaben Sie einen Rabatt in Höhe von 2, 53%\nerhalten. Dieser Rabatt entspricht einer\ngenerellen MwSt-Senkung um 3% Punkte.\nBei jedem Einkauf maximal sparen! .\n\nTSE Transaktionsnummer: 10616\n\nSeriennr. Kasse: FRS50272021020\nPrüfwert: VMinvFMvc levtDbbDZKU5jt leFGPINB\np3pk/SaBbr fLt ]Fo7rthw2NYJBOz/7iP2a8z2T0Yb1\ny5/4j90XyAmI ZDAg==\n\nSignaturzähler: 21403\n\n2020-12-04 709: 36: 54. 000+01002020-12-04T0\n9:37:23. 000+0100\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Fressnapf Köln-Ehrenfeld",
+   "date": "2020-12-04",
+   "category": null,
+   "amount": 34.09,
+   "alternatives": [
+    34.97,
+    50.09
+   ],
+   "confidence": 9.526316,
+   "ranked": [
+    [
+     34.09,
+     16.197368
+    ],
+    [
+     34.97,
+     4.171053
+    ],
+    [
+     50.09,
+     1.210526
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "Fressnapf Köln-Ehrenfeld",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Subbelratherstraße 387-407",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "50825 Köln",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Tel.+49 (0) 221 - 558489",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "www. fressnapf. de",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Steuernummer :DE2 73010747",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "EUR",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Art/Ean 4047777185192",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "“ANIO Ersatzfilter 2 Stk 9,99 D",
+     "amounts": [
+      9.99
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Art/Ean 4047777204985",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ANIO Ersatzpumpe 9,99 D",
+     "amounts": [
+      9.99
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Art/Ean 4047777149767",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "PREM Multicat 121 14,9 D",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "SUMME [ 3] . EUR 34, 97",
+     "amounts": [
+      34.97
+     ],
+     "kind": "sum",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "MwSt. -Senkung -0, 88",
+     "amounts": [
+      -0.88
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Summe EUR - - 34,09",
+     "amounts": [
+      34.09
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Bar Euro EUR 50,09",
+     "amounts": [
+      50.09
+     ],
+     "kind": "cash",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Rückgeld EUR -16, 00",
+     "amounts": [
+      -16.0
+     ],
+     "kind": "change",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "MwSt D 16, 00% 29, 39 4,10",
+     "amounts": [
+      16.0,
+      29.39,
+      4.1
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "Für diesen Einkauf hätten Sie",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "17 PAYBACK Punkt (e) erhalten!",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Eine PAYBACK Karte erhalten Sie unter:",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "www. fressnapf. de/PAYBACK",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "0015027041220102000263°",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Datum Uhrzeit Filiale Pos Bed Bon",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "04.12.20 09:36 0005027 102 5354 0263",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Durch die oben aufgeführte MwSt-Senkung",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "haben Sie einen Rabatt in Höhe von 2, 53%",
+     "amounts": [
+      2.53
+     ],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "erhalten. Dieser Rabatt entspricht einer",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "generellen MwSt-Senkung um 3% Punkte.",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Bei jedem Einkauf maximal sparen! .",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "TSE Transaktionsnummer: 10616",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Seriennr. Kasse: FRS50272021020",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Prüfwert: VMinvFMvc levtDbbDZKU5jt leFGPINB",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "p3pk/SaBbr fLt ]Fo7rthw2NYJBOz/7iP2a8z2T0Yb1",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "y5/4j90XyAmI ZDAg==",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Signaturzähler: 21403",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "2020-12-04 709: 36: 54. 000+01002020-12-04T0",
+     "amounts": [
+      709.36
+     ],
+     "kind": null,
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "9:37:23. 000+0100",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s027",
+  "source": "fixtures/ocr/lidl_1054a.txt",
+  "texts": [
+   "e\nLenk.\nHeegermühlerstr. 1\n16225 Eberswalde\nMo-Sa 8-21 Uhr So geschlossen\n\nEUR\nMi Ichmischget rank 0,49 A\nBio Haferdr ink 1,19 B\nJacobs Krön. Kräftig 7,98 A\n2x 3,99\nMineralwasser still 0,38 B\n2x 0,19\nPfand 0,25 EM 0,50B\n2x 0,25\nzu zahlen 10,54\nBar 10,54\nMWST MWST + Netto = Brutto\nA 7 0,55 7,92 8,47\nB 19% 0,33 1,74 2,07\nSumme 0,88 9,6 10,54\n0978 598412/03 16.02.18 09:28\nUST-ID-NR: DE250063577\nxx r%\nVIELEN DANK UND BIS BALD!\nLIDL LOHNT SICH. \\\n++ 3%\n\nKX SALE %X\nDie große Preisschmelze!\n+# NUR ONLINE ++\nTop-Angebote EXTREM reduziert\nCode eingeben: WSV2018\nlid] .de/preisschaelze\n\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Lenk",
+   "date": "2018-02-16",
+   "category": "Lebensmittel",
+   "amount": 10.54,
+   "alternatives": [],
+   "confidence": 15.306452,
+   "ranked": [
+    [
+     10.54,
+     17.806452
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "e",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Lenk.",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Heegermühlerstr. 1",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "16225 Eberswalde",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Mo-Sa 8-21 Uhr So geschlossen",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "EUR",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Mi Ichmischget rank 0,49 A",
+     "amounts": [
+      0.49
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Bio Haferdr ink 1,19 B",
+     "amounts": [
+      1.19
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Jacobs Krön. Kräftig 7,98 A",
+     "amounts": [
+      7.98
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "2x 3,99",
+     "amounts": [
+      3.99
+     ],
+     "kind": "ignore",
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Mineralwasser still 0,38 B",
+     "amounts": [
+      0.38
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "2x 0,19",
+     "amounts": [
+      0.19
+     ],
+     "kind": "ignore",
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Pfand 0,25 EM 0,50B",
+     "amounts": [
+      0.25,
+      0.5
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "2x 0,25",
+     "amounts": [
+      0.25
+     ],
+     "kind": "ignore",
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "zu zahlen 10,54",
+     "amounts": [
+      10.54
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Bar 10,54",
+     "amounts": [
+      10.54
+     ],
+     "kind": "cash",
+     "orphan": true,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "MWST MWST + Netto = Brutto",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "A 7 0,55 7,92 8,47",
+     "amounts": [
+      0.55,
+      7.92,
+      8.47
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "B 19% 0,33 1,74 2,07",
+     "amounts": [
+      0.33,
+      1.74,
+      2.07
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "Summe 0,88 9,6 10,54",
+     "amounts": [
+      0.88,
+      10.54
+     ],
+     "kind": "sum",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "0978 598412/03 16.02.18 09:28",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "UST-ID-NR: DE250063577",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "xx r%",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "VIELEN DANK UND BIS BALD!",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "LIDL LOHNT SICH. \\",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "++ 3%",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "KX SALE %X",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Die große Preisschmelze!",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "+# NUR ONLINE ++",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Top-Angebote EXTREM reduziert",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Code eingeben: WSV2018",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "lid] .de/preisschaelze",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s028",
+  "source": "fixtures/ocr/lidl_1054b.txt",
+  "texts": [
+   "Heegermühlerstr. 1\n16225 Eberswalde\nMo-Sa 8-21 Uhr So geschlossen\n\nEUR\nMilchmischgetränk 0,49 A\nBio Haferdrink 1,19 B\nJacobs Krön. Kräftig - 7,98 A\n2 X 3,99\nMineralwasser still 0,38 B\n2X f\nPfand 0,25 EM 0,50 B\n2x 0,25\nzu zahlen 10,54\nBar 10,54\nMWST% MUST + Netto = Brutto\nA 7% 0,55 7,32 8,47\nB 19% 0,33 1,74 2,07\nSumme 0,88 9,66 10,54\n0978  5986412/03 16.02.18 09:2\nUST-ID-NR: DE250063577\nkK * %*\n\nVIELEN DANK UND BIS BALD!\nLIDL LOHNT SICH,\nEr 3\n4% S-A-L-E %%\nDie große Preisschmelze!\n** NUR ONLINE **\nTop-Angebote EXTREM reduziert\nCode eingeben: WSV2018\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Mo-Sa 8-21 Uhr So geschlossen",
+   "date": "2018-02-16",
+   "category": "Lebensmittel",
+   "amount": 10.54,
+   "alternatives": [],
+   "confidence": 15.303571,
+   "ranked": [
+    [
+     10.54,
+     17.803571
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "Heegermühlerstr. 1",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "16225 Eberswalde",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Mo-Sa 8-21 Uhr So geschlossen",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "EUR",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Milchmischgetränk 0,49 A",
+     "amounts": [
+      0.49
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Bio Haferdrink 1,19 B",
+     "amounts": [
+      1.19
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Jacobs Krön. Kräftig - 7,98 A",
+     "amounts": [
+      7.98
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "2 X 3,99",
+     "amounts": [
+      3.99
+     ],
+     "kind": "ignore",
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Mineralwasser still 0,38 B",
+     "amounts": [
+      0.38
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "2X f",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Pfand 0,25 EM 0,50 B",
+     "amounts": [
+      0.25,
+      0.5
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "2x 0,25",
+     "amounts": [
+      0.25
+     ],
+     "kind": "ignore",
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "zu zahlen 10,54",
+     "amounts": [
+      10.54
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Bar 10,54",
+     "amounts": [
+      10.54
+     ],
+     "kind": "cash",
+     "orphan": true,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "MWST% MUST + Netto = Brutto",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "A 7% 0,55 7,32 8,47",
+     "amounts": [
+      0.55,
+      7.32,
+      8.47
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "B 19% 0,33 1,74 2,07",
+     "amounts": [
+      0.33,
+      1.74,
+      2.07
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "Summe 0,88 9,66 10,54",
+     "amounts": [
+      0.88,
+      9.66,
+      10.54
+     ],
+     "kind": "sum",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "0978  5986412/03 16.02.18 09:2",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "UST-ID-NR: DE250063577",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "kK * %*",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "VIELEN DANK UND BIS BALD!",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "LIDL LOHNT SICH,",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Er 3",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "4% S-A-L-E %%",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Die große Preisschmelze!",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "** NUR ONLINE **",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Top-Angebote EXTREM reduziert",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Code eingeben: WSV2018",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s029",
+  "source": "fixtures/ocr/lidl_638.txt",
+  "texts": [
+   "Heegermühlerstr. 1 |\n16225 Eberswalde\nMo-Sa 8-21 Uhr So geschlossen\n\nEUR\nAugenMakeUp-Entfern. 1,45 B\nSagrotan Gel Kamille 1,75 B\nLeder Rein. Tucher 1,49 B\nSchoko-Bananen 1,69 A\nzu zahlen 6,38\nKreditkarte 6,38\n— -MHSTK MUST + Netto = Brutto\nATX 0,11 1,58 1,69\nB 19 x 0, 75 3,94 4,69\n0,86 5,52 6,38\n\nEmm\n\n0978 182607/02 16.02.18\nUST-IO-NR: DE250063577\nxt * x\nVIELEN DANK UND BIS BALD!\nLIDL LOHNT SICH.\nke *t\n¥X% S-A-L-E XX\nDie große Preisschaelze!\n** NUR ONLINE +4\nTop-Angebote EXTREM reduziert\nCode eingeben: WSV2018\nlid] .de/preisschmelze\nDatum 16.02.18 15:25 Uhr\n+++ Zahlung erfolgt ***\n\n—— OF OD GF © 08 OP OD & On Up OD Du em 8 ww En a a em\nEwe we see ED am am ene a mn ER On Em a an\nwan naw uns mn nu nn a nA DE Rn 2 oe\n\n-K-U-N-D-E-N-B-E-L-E-G-\nTerminal-ID : 60128318\nTA-Nr 510310 BNr 1627\nKartenzahlung\nVisa kontaktlos\nVISA Credit\nEUR 6,38\nPAN HHHRHRRRHRRRAOTA\nKarte 0\nEMV-AID A0000000031010\nVU-Nr 4556221799\nGenehmigungs-Nr 065599\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Mo-Sa 8-21 Uhr So geschlossen",
+   "date": "2018-02-16",
+   "category": "Lebensmittel",
+   "amount": 6.38,
+   "alternatives": [],
+   "confidence": 19.44186,
+   "ranked": [
+    [
+     6.38,
+     21.94186
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "Heegermühlerstr. 1 |",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "16225 Eberswalde",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Mo-Sa 8-21 Uhr So geschlossen",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "EUR",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "AugenMakeUp-Entfern. 1,45 B",
+     "amounts": [
+      1.45
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Sagrotan Gel Kamille 1,75 B",
+     "amounts": [
+      1.75
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Leder Rein. Tucher 1,49 B",
+     "amounts": [
+      1.49
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Schoko-Bananen 1,69 A",
+     "amounts": [
+      1.69
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "zu zahlen 6,38",
+     "amounts": [
+      6.38
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Kreditkarte 6,38",
+     "amounts": [
+      6.38
+     ],
+     "kind": "card",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "— -MHSTK MUST + Netto = Brutto",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ATX 0,11 1,58 1,69",
+     "amounts": [
+      0.11,
+      1.58,
+      1.69
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "B 19 x 0, 75 3,94 4,69",
+     "amounts": [
+      0.75,
+      3.94,
+      4.69
+     ],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "0,86 5,52 6,38",
+     "amounts": [
+      0.86,
+      5.52,
+      6.38
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "Emm",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "0978 182607/02 16.02.18",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "UST-IO-NR: DE250063577",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "xt * x",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "VIELEN DANK UND BIS BALD!",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "LIDL LOHNT SICH.",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ke *t",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "¥X% S-A-L-E XX",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Die große Preisschaelze!",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "** NUR ONLINE +4",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Top-Angebote EXTREM reduziert",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Code eingeben: WSV2018",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "lid] .de/preisschmelze",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Datum 16.02.18 15:25 Uhr",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "+++ Zahlung erfolgt ***",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "—— OF OD GF © 08 OP OD & On Up OD Du em 8 ww En a a em",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Ewe we see ED am am ene a mn ER On Em a an",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "wan naw uns mn nu nn a nA DE Rn 2 oe",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "-K-U-N-D-E-N-B-E-L-E-G-",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Terminal-ID : 60128318",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "TA-Nr 510310 BNr 1627",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Kartenzahlung",
+     "amounts": [],
+     "kind": "card",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Visa kontaktlos",
+     "amounts": [],
+     "kind": "card",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "VISA Credit",
+     "amounts": [
+      6.38
+     ],
+     "kind": "card",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": true
+    },
+    {
+     "raw": "EUR 6,38",
+     "amounts": [
+      6.38
+     ],
+     "kind": null,
+     "orphan": true,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "PAN HHHRHRRRHRRRAOTA",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Karte 0",
+     "amounts": [],
+     "kind": "card",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "EMV-AID A0000000031010",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "VU-Nr 4556221799",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Genehmigungs-Nr 065599",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s030",
+  "source": "fixtures/ocr/lotto_500.txt",
+  "texts": [
+   "LOTTO-POST-PRESSE FETTING\nHEEGEMUHLER STRASSE 19\n16225 EBERSWALDE\n\n#071408 16/02/2018 11:51\n\n01 BEDIENERON 000000\n1x 5.00 £5.00\nZEITUNGEN\nZW-SUKHE £5.00\nHNST 2 2NS €5.00\nKWST 2 £0.33\n“NEITO 2 €4.67\nBAR €5. 00\n\nSTR. -HR. : 065/218/01571\nVIELEN DANK FOR\nIHREN EINKAUF\n\nAAARARAARAAR A AAARAAAA A A AR ABA 2 aA A A fa 2 ae AB ma a AA a a a\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Lotto-Post-Presse Fetting",
+   "date": "2018-02-16",
+   "category": null,
+   "amount": 5.0,
+   "alternatives": [],
+   "confidence": 9.366667,
+   "ranked": [
+    [
+     5.0,
+     11.866667
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "LOTTO-POST-PRESSE FETTING",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "HEEGEMUHLER STRASSE 19",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "16225 EBERSWALDE",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "#071408 16/02/2018 11:51",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "01 BEDIENERON 000000",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "1x 5.00 £5.00",
+     "amounts": [
+      5.0,
+      5.0
+     ],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ZEITUNGEN",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ZW-SUKHE £5.00",
+     "amounts": [
+      5.0
+     ],
+     "kind": "sum",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "HNST 2 2NS €5.00",
+     "amounts": [
+      5.0
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "KWST 2 £0.33",
+     "amounts": [
+      0.33
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "“NEITO 2 €4.67",
+     "amounts": [
+      4.67
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "BAR €5. 00",
+     "amounts": [
+      5.0
+     ],
+     "kind": "cash",
+     "orphan": true,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "STR. -HR. : 065/218/01571",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "VIELEN DANK FOR",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "IHREN EINKAUF",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "AAARARAARAAR A AAARAAAA A A AR ABA 2 aA A A fa 2 ae AB ma a AA a a a",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s031",
+  "source": "fixtures/ocr/reno_995.txt",
+  "texts": [
+   "BEER\n\nRENO\n\nwww.reno.de\n\nRERO Schuh GmbH\nHeesermuhler Straße la\n16225 Ebersualde\nTel.: 0 33 34 / 3 20 07\nUSt-ID-Hr./St.Nr.: DE 145461098\n\nEs bediente Sie Frau Reno\n\n114 Verkauf 158363 00155 0¢\n\n1213201440\n\nHe Hausschuhe 9,95 f\nSuane 9,95\n\nKreditkarte 9,95\n\nA5-19,0% enih. MuSt 1,59\n\n16.02.2018 - 15:34.\n\nViel Freude mit Ihren neuen Schuhen!\nUntausch von unsetragener Ware\nart Kassenbon innerhalb von\n14 Tagen nöalıch.\n\nwww.reno.de\n\n> 24 Stunden\nshoppen!\n\nUMLAND\n\n02150015501 1583634\n% % Kundenbeleg 3% %\nReno Schuh GrtH\nHeeserauhler Straße 1 a\n16225 Eberswalde\nVielen Dank\nfur Ihren Einkauf\n\nDatun: 16.02.:\nUhrzeıt. 15:33:37\nBeleg-Nr. !\nTrace-Hr. 02%\nBezahlung\n\nVISA Credit\n\nNr. SURRBRRREAUNAOIG (\nVU-Nre. 455614:\nGenehnigungs-iir . 06¢\nTerninal-ID 6525!\nPos-Info 00 05°\nNS-Zeit 16.02. 15:33\n\nnS-Proc-Code = 00 055 00\n\nCapt.-Ref.= 0000\n\n00 GENEHHIGT\n\nBetrag EUR N\n\nZahlung erfolst\n\nBitte Belea sufbewshren\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "BEER",
+   "date": "2018-02-16",
+   "category": null,
+   "amount": 9.95,
+   "alternatives": [],
+   "confidence": 11.135417,
+   "ranked": [
+    [
+     9.95,
+     13.635417
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "BEER",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "RENO",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "www.reno.de",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "RERO Schuh GmbH",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Heesermuhler Straße la",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "16225 Ebersualde",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Tel.: 0 33 34 / 3 20 07",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "USt-ID-Hr./St.Nr.: DE 145461098",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Es bediente Sie Frau Reno",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "114 Verkauf 158363 00155 0¢",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "1213201440",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "He Hausschuhe 9,95 f",
+     "amounts": [
+      9.95
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Suane 9,95",
+     "amounts": [
+      9.95
+     ],
+     "kind": "sum",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Kreditkarte 9,95",
+     "amounts": [
+      9.95
+     ],
+     "kind": "card",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "A5-19,0% enih. MuSt 1,59",
+     "amounts": [
+      1.59
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "16.02.2018 - 15:34.",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Viel Freude mit Ihren neuen Schuhen!",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Untausch von unsetragener Ware",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "art Kassenbon innerhalb von",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "14 Tagen nöalıch.",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "www.reno.de",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "> 24 Stunden",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "shoppen!",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "UMLAND",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "02150015501 1583634",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "% % Kundenbeleg 3% %",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Reno Schuh GrtH",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Heeserauhler Straße 1 a",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "16225 Eberswalde",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Vielen Dank",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "fur Ihren Einkauf",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Datun: 16.02.:",
+     "amounts": [
+      16.02
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Uhrzeıt. 15:33:37",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Beleg-Nr. !",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Trace-Hr. 02%",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Bezahlung",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "VISA Credit",
+     "amounts": [],
+     "kind": "card",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Nr. SURRBRRREAUNAOIG (",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "VU-Nre. 455614:",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Genehnigungs-iir . 06¢",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Terninal-ID 6525!",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Pos-Info 00 05°",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "NS-Zeit 16.02. 15:33",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "nS-Proc-Code = 00 055 00",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Capt.-Ref.= 0000",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "00 GENEHHIGT",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Betrag EUR N",
+     "amounts": [],
+     "kind": "final",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Zahlung erfolst",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Bitte Belea sufbewshren",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s032",
+  "source": "fixtures/ocr/rewe_188a.txt",
+  "texts": [
+   "REWE\n\nNeTR2DB Eber s Str. 19\nerswalde\n\nTel. : 03334 5263377\n\nUID Nr. : DE308313039 aR\nMIO MATE BANANE 0,69 A\nPFAND 0, 15 EUR 0.15 A x\nLOSCHER CLUBMATE\nPFAND 0, 15 EUR j 015.4 x\nME ER, 1.88\nGeg. BAR EUR 2,0\nRückgeld BAR EUR 0%\n\nei Te ETE\n\n16. 02. 2018 15:44 Bon- “Nr.\nMarkt: 5647 Kasse:2 Bed. Niet\n\nKRITIKEN ST SEABVSSRAALAMAEKKEKKRAKTAKEAS\n\nJetzt mit PAYBACK Punkten bezahlen!\nEinfach RFWE Guthaben an Service-Punkt\naufladen.\n\nFür die mit x gekennzeichneten Produkte\nerhalten Sie leider keine Rabatte\noder PAYBACK Punkte.\n\nLETTER FETT TTTE RE VEEAMAVSACEAKKKEKKEKKAKAKAE\nVielen Dank für Ihren Einkauf\n\nWir sind für Sie\nMo. - Sa. 07:00 bis 21: 2 Uhr\n\nSie haben Fragen?\nAntworten gibt es unter mn. rewe. de\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "REWE",
+   "date": "2018-02-16",
+   "category": "Lebensmittel",
+   "amount": 1.88,
+   "alternatives": [
+    0.69,
+    0.15
+   ],
+   "confidence": 0.0,
+   "ranked": [
+    [
+     1.88,
+     0.0
+    ],
+    [
+     0.69,
+     0.0
+    ],
+    [
+     0.15,
+     0.0
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "REWE",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "NeTR2DB Eber s Str. 19",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "erswalde",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Tel. : 03334 5263377",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "UID Nr. : DE308313039 aR",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "MIO MATE BANANE 0,69 A",
+     "amounts": [
+      0.69
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "PFAND 0, 15 EUR 0.15 A x",
+     "amounts": [
+      0.15,
+      0.15
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "LOSCHER CLUBMATE",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "PFAND 0, 15 EUR j 015.4 x",
+     "amounts": [
+      0.15
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ME ER, 1.88",
+     "amounts": [
+      1.88
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Geg. BAR EUR 2,0",
+     "amounts": [],
+     "kind": "cash",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Rückgeld BAR EUR 0%",
+     "amounts": [],
+     "kind": "change",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ei Te ETE",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "16. 02. 2018 15:44 Bon- “Nr.",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Markt: 5647 Kasse:2 Bed. Niet",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "KRITIKEN ST SEABVSSRAALAMAEKKEKKRAKTAKEAS",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Jetzt mit PAYBACK Punkten bezahlen!",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Einfach RFWE Guthaben an Service-Punkt",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "aufladen.",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Für die mit x gekennzeichneten Produkte",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "erhalten Sie leider keine Rabatte",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "oder PAYBACK Punkte.",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "LETTER FETT TTTE RE VEEAMAVSACEAKKKEKKEKKAKAKAE",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Vielen Dank für Ihren Einkauf",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Wir sind für Sie",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Mo. - Sa. 07:00 bis 21: 2 Uhr",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Sie haben Fragen?",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Antworten gibt es unter mn. rewe. de",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s033",
+  "source": "fixtures/ocr/rewe_188b.txt",
+  "texts": [
+   "oH\nEee str. 19\nEberswalde\nTel. : 03334 5263377\nUID Nr. : DE308313039\n\nEUR\nMIO MATE BANANE 0,69 A\nAN 0. 15 A x\nLOSCHER. CP UBMATE 89 A\nPFAND 0, 15 EUR oo 4 15 h x\nGeg BAR | “EUR 2,00\nRückgeld BAR EUR 0,12\n\nDT, u > \"ER\n\n16. 02. 2018 15:44 Bon- N\nMarkt:5647 Kasse:2 Bed. : \"hier\n\nJetzt mit PAYBACK Punkten bezahlen!\nEinfach REWE Guthaben am Service-Punkt\naufladen.\n\nFür die mit * gekennzeichneten Produkte\nerhalten Sie leider keine Rabatte\noder PAYBACK Punkte.\n\nOOOO HOO AAGOOR CCGA OOO OK\nVielen Dank für Ihren Einkauf\n\nwir sind für Sie da:\nMo. - Sa. 07:00 bis 21:30 Uhr\n\nsie haben Fragen?\nAntworten gibt es unter www. rewe. de\n\nPT\n\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Eberswalde",
+   "date": "2018-02-16",
+   "category": "Lebensmittel",
+   "amount": 1.88,
+   "alternatives": [
+    2.0
+   ],
+   "confidence": 2.314815,
+   "ranked": [
+    [
+     1.88,
+     3.5
+    ],
+    [
+     2.0,
+     1.185185
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "oH",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Eee str. 19",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Eberswalde",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Tel. : 03334 5263377",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "UID Nr. : DE308313039",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "EUR",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "MIO MATE BANANE 0,69 A",
+     "amounts": [
+      0.69
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "AN 0. 15 A x",
+     "amounts": [
+      0.15
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "LOSCHER. CP UBMATE 89 A",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "PFAND 0, 15 EUR oo 4 15 h x",
+     "amounts": [
+      0.15
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Geg BAR | “EUR 2,00",
+     "amounts": [
+      2.0
+     ],
+     "kind": "cash",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Rückgeld BAR EUR 0,12",
+     "amounts": [
+      0.12
+     ],
+     "kind": "change",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "DT, u > \"ER",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "16. 02. 2018 15:44 Bon- N",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Markt:5647 Kasse:2 Bed. : \"hier",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Jetzt mit PAYBACK Punkten bezahlen!",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Einfach REWE Guthaben am Service-Punkt",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "aufladen.",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Für die mit * gekennzeichneten Produkte",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "erhalten Sie leider keine Rabatte",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "oder PAYBACK Punkte.",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "OOOO HOO AAGOOR CCGA OOO OK",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Vielen Dank für Ihren Einkauf",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "wir sind für Sie da:",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Mo. - Sa. 07:00 bis 21:30 Uhr",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "sie haben Fragen?",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Antworten gibt es unter www. rewe. de",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "PT",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s034",
+  "source": "fixtures/ocr/sroie_105.txt",
+  "texts": [
+   "4\n\nTED HENG STATIONERY 6 BOOKS\n\n(001451437-M)\nNO. 53, JALAN BESAR, 45600 BATANG BERJUNTAI\nSELANGOR DARUL EHSAN ' ;\nTEL: 03-3271 9872 FAX + 03-3271 Sot\nGST No. 4000689213856 \\ a \\\n\n—— San Del AMIN OIG 1\nCASH\n\nReceipt No.: C81801/27224 \\Date : 29/01/2018\n\not”\n<a\n\n- he . AMOUNT\nITEM = QTY UP Disc% “Mau\n\n—\n\n1 2 0.50 0.00 1.00 +\n- CARBON PAPER\nTotal Qty. : 2 1.00\nSUB-TOTAL (EX) ; 1.00\nTOTAL TAX 0.06\nROUNDING : -0.01\nTOTAL 1.05\nCASH 1.05\nCHANGE 0.00\n\nGST SUMMARY\n\n“ee | & AMOUNT TAX\nSR 6.00 1.00 0.06\n\na nn nn\n\nTOTAL: 1.00 0.06\n\nNote: (*) Indicated The Item Sold Has Been Related\nTo GST (Goods & Services Tax).\n\nGOODS SOLD ARE NOT RETURNABLE,\nTHANK YOU,\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Ted Heng Stationery 6 Books",
+   "date": "2018-01-29",
+   "category": null,
+   "amount": 1.05,
+   "alternatives": [
+    0.06,
+    1.0
+   ],
+   "confidence": 12.40625,
+   "ranked": [
+    [
+     1.05,
+     17.34375
+    ],
+    [
+     0.06,
+     2.4375
+    ],
+    [
+     1.0,
+     1.9375
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "4",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "TED HENG STATIONERY 6 BOOKS",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "(001451437-M)",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "NO. 53, JALAN BESAR, 45600 BATANG BERJUNTAI",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "SELANGOR DARUL EHSAN ' ;",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "TEL: 03-3271 9872 FAX + 03-3271 Sot",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "GST No. 4000689213856 \\ a \\",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "—— San Del AMIN OIG 1",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "CASH",
+     "amounts": [],
+     "kind": "cash",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Receipt No.: C81801/27224 \\Date : 29/01/2018",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ot”",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "<a",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "- he . AMOUNT",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ITEM = QTY UP Disc% “Mau",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "—",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "1 2 0.50 0.00 1.00 +",
+     "amounts": [
+      0.5,
+      0.0,
+      1.0
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "- CARBON PAPER",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Total Qty. : 2 1.00",
+     "amounts": [
+      1.0
+     ],
+     "kind": "ignore",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "SUB-TOTAL (EX) ; 1.00",
+     "amounts": [
+      1.0
+     ],
+     "kind": "sub",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "TOTAL TAX 0.06",
+     "amounts": [
+      0.06
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ROUNDING : -0.01",
+     "amounts": [
+      -0.01
+     ],
+     "kind": "ignore",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "TOTAL 1.05",
+     "amounts": [
+      1.05
+     ],
+     "kind": "sum",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "CASH 1.05",
+     "amounts": [
+      1.05
+     ],
+     "kind": "cash",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "CHANGE 0.00",
+     "amounts": [
+      0.0
+     ],
+     "kind": "change",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "GST SUMMARY",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "“ee | & AMOUNT TAX",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "SR 6.00 1.00 0.06",
+     "amounts": [
+      6.0,
+      1.0,
+      0.06
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "a nn nn",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "TOTAL: 1.00 0.06",
+     "amounts": [
+      1.0,
+      0.06
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "Note: (*) Indicated The Item Sold Has Been Related",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "To GST (Goods & Services Tax).",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "GOODS SOLD ARE NOT RETURNABLE,",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "THANK YOU,",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s035",
+  "source": "fixtures/ocr/sroie_12720.txt",
+  "texts": [
+   "TEO HENG ens\n\n5 (ere 637-1 ERY\n\nSIMPLIFIED TAX INVOICE\nCASH\n\nReceipt No. CS1803/28617 Date: 15/03/2018\n\n3 on 4, AMOUNT\nITEM QTY UP Discts “Rs\n\n4974052801334 48 2 70 7. a 120.00 »\n= ARTLINE 70\n\nTotal Qty. : 48 120.00\n\nSUB-TOTAL (EX) : 120.00\n\nTOTAL TAX x 7.20\n\nROUNDING q 0.00\n\nTOTAL : 127.20\n\nCASH : 127.20\n\nCHANGE : 0.00\n\n_ [6st SUMMARY\n\n; ae AMOUNT © TAX\nTANCODE % (Ri) (Rap\nSR 6.00 120.00 7.20\n\nTOTAL: 120.00 7.20\n\nNote: (*) Indicated The Item. Sold Has Been Related\nTo GST (Goods & Services Tax).\n\nGOODS SOLD ARE NOT RETURNABLE,\nTHANK YOU.\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "TEO HENG ens",
+   "date": "2018-03-15",
+   "category": null,
+   "amount": 127.2,
+   "alternatives": [
+    7.2,
+    120.0
+   ],
+   "confidence": 14.375,
+   "ranked": [
+    [
+     127.2,
+     19.291667
+    ],
+    [
+     7.2,
+     2.416667
+    ],
+    [
+     120.0,
+     1.916667
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "TEO HENG ens",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "5 (ere 637-1 ERY",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "SIMPLIFIED TAX INVOICE",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "CASH",
+     "amounts": [],
+     "kind": "cash",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Receipt No. CS1803/28617 Date: 15/03/2018",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "3 on 4, AMOUNT",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ITEM QTY UP Discts “Rs",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "4974052801334 48 2 70 7. a 120.00 »",
+     "amounts": [
+      120.0
+     ],
+     "kind": null,
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "= ARTLINE 70",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Total Qty. : 48 120.00",
+     "amounts": [
+      120.0
+     ],
+     "kind": "ignore",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "SUB-TOTAL (EX) : 120.00",
+     "amounts": [
+      120.0
+     ],
+     "kind": "sub",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "TOTAL TAX x 7.20",
+     "amounts": [
+      7.2
+     ],
+     "kind": "ignore",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ROUNDING q 0.00",
+     "amounts": [
+      0.0
+     ],
+     "kind": "ignore",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "TOTAL : 127.20",
+     "amounts": [
+      127.2
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "CASH : 127.20",
+     "amounts": [
+      127.2
+     ],
+     "kind": "cash",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "CHANGE : 0.00",
+     "amounts": [
+      0.0
+     ],
+     "kind": "change",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "_ [6st SUMMARY",
+     "amounts": [],
+     "kind": "sum",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "; ae AMOUNT © TAX",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "TANCODE % (Ri) (Rap",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "SR 6.00 120.00 7.20",
+     "amounts": [
+      6.0,
+      120.0,
+      7.2
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "TOTAL: 120.00 7.20",
+     "amounts": [
+      120.0,
+      7.2
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "Note: (*) Indicated The Item. Sold Has Been Related",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "To GST (Goods & Services Tax).",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "GOODS SOLD ARE NOT RETURNABLE,",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "THANK YOU.",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s036",
+  "source": "fixtures/ocr/sroie_2735.txt",
+  "texts": [
+   "TED HENG STATI\n\n(001\n\nReceipt No.: ©S1801/27175 Wate: 27/01/2018\n\nory we yp AMOUNT\nITEM or UP DISCh (RM)\n1355 1 3.96 4.09 3.80 +\n- DOUBLE SIDE FOAM TAPE 18MM\n9557950605126 5 2.74 4.96 13.00 +\n- CAMIS SQ BOOK 200\n9557369315028 1 5.47 4.96 5.20 +\n\n~ EAGLE F4 200 FOOLSCAP BOOK\n\n9557369305006 1 3.96 4.09 3.80 +\n\n~ EAGLE F4 120 NUMBERING FOOLSCAP\nBOOK\n\nTotal Qty. : 8 25.80\n\nSUB-TOTAL (EX) : 25.80\nTOTAL TAX : 1.55\nROUNDING : 0.00\nTOTAL : 27.35\nCASH : 27.35\nCHANGE : 0.00\n\n[GST SUMMARY\n\nPAN > 5 AMOUNT TAX\nCODE %\n\nu N CODE ia (RM) (RM)\n\nSR 6.00 25.80 4.55\n\nTOTAL: 25.80 1.55\n\nNote: (*) indicated The Item Sold Has Been Related\nTo GST (Goods & Services Tax).\n\nGOODS SOLD ARE NOT RETURNABLE,\nTHANK YOU,\n\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Ted Heng Stati",
+   "date": "2018-01-27",
+   "category": null,
+   "amount": 27.35,
+   "alternatives": [
+    1.55,
+    25.8
+   ],
+   "confidence": 14.383333,
+   "ranked": [
+    [
+     27.35,
+     19.316667
+    ],
+    [
+     1.55,
+     2.433333
+    ],
+    [
+     25.8,
+     1.933333
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "TED HENG STATI",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "(001",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Receipt No.: ©S1801/27175 Wate: 27/01/2018",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ory we yp AMOUNT",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ITEM or UP DISCh (RM)",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "1355 1 3.96 4.09 3.80 +",
+     "amounts": [
+      3.96,
+      4.09,
+      3.8
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "- DOUBLE SIDE FOAM TAPE 18MM",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "9557950605126 5 2.74 4.96 13.00 +",
+     "amounts": [
+      2.74,
+      4.96,
+      13.0
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "- CAMIS SQ BOOK 200",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "9557369315028 1 5.47 4.96 5.20 +",
+     "amounts": [
+      5.47,
+      4.96,
+      5.2
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "~ EAGLE F4 200 FOOLSCAP BOOK",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "9557369305006 1 3.96 4.09 3.80 +",
+     "amounts": [
+      3.96,
+      4.09,
+      3.8
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "~ EAGLE F4 120 NUMBERING FOOLSCAP",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "BOOK",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Total Qty. : 8 25.80",
+     "amounts": [
+      25.8
+     ],
+     "kind": "ignore",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "SUB-TOTAL (EX) : 25.80",
+     "amounts": [
+      25.8
+     ],
+     "kind": "sub",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "TOTAL TAX : 1.55",
+     "amounts": [
+      1.55
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ROUNDING : 0.00",
+     "amounts": [
+      0.0
+     ],
+     "kind": "ignore",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "TOTAL : 27.35",
+     "amounts": [
+      27.35
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "CASH : 27.35",
+     "amounts": [
+      27.35
+     ],
+     "kind": "cash",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "CHANGE : 0.00",
+     "amounts": [
+      0.0
+     ],
+     "kind": "change",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "[GST SUMMARY",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "PAN > 5 AMOUNT TAX",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "CODE %",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "u N CODE ia (RM) (RM)",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "SR 6.00 25.80 4.55",
+     "amounts": [
+      6.0,
+      25.8,
+      4.55
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "TOTAL: 25.80 1.55",
+     "amounts": [
+      25.8,
+      1.55
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "Note: (*) indicated The Item Sold Has Been Related",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "To GST (Goods & Services Tax).",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "GOODS SOLD ARE NOT RETURNABLE,",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "THANK YOU,",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s037",
+  "source": "fixtures/ocr/sroie_3025.txt",
+  "texts": [
+   "OLDTOWN WHITE COFFEE\nOld Town Kopitiam Sdn Bhd (716269-X)\nSri Rampai\nTel: 03-4148 1876\n\na » Check sm up\nGime **  HISEIS>NOTSASsRECE IPT xx ie\nGST 1D:00080 1587200\n\n4 COUNTER3 2009 LIZA\nCheck :37617 Cover: ]\n22 Mar 18 12:44:00 PM\n\nTable:5 / 1\n\n“ane Dine In -----\n1 ST30 13.87 S\n| BRIO Stm Ginger R N\n] TF2 (H) Teh Tarik S\nI HS4 12.07 §\n| SN5 Curry Mee N\n| TF7 (C) Lemon T S\nSubtotal: 25.94\n10% Srv Chg: 2.59\nGST @6% 1.7]\nTotal: 30.24\nRounding: 0.01\nAmount Due 30.25\nINCLUSIVE 0.00 x\n\n----3004 STORED 22 Mar 18 02:1..50 PM---\n\nTHANK YOU\nPLEASE COME AGAIN\nGST @6% included in total\n\nGSTSummary Amount(RM) GST(RM)\n\nS=GST @6%: 28.53 1.71\nZ=GST @0%: 0.00 0.00\n\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Oldtown White Coffee",
+   "date": null,
+   "category": null,
+   "amount": 30.25,
+   "alternatives": [
+    30.24,
+    25.94
+   ],
+   "confidence": 2.032258,
+   "ranked": [
+    [
+     30.25,
+     10.870968
+    ],
+    [
+     30.24,
+     6.33871
+    ],
+    [
+     25.94,
+     1.790323
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "OLDTOWN WHITE COFFEE",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Old Town Kopitiam Sdn Bhd (716269-X)",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Sri Rampai",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Tel: 03-4148 1876",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "a » Check sm up",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Gime **  HISEIS>NOTSASsRECE IPT xx ie",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "GST 1D:00080 1587200",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "4 COUNTER3 2009 LIZA",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Check :37617 Cover: ]",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "22 Mar 18 12:44:00 PM",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Table:5 / 1",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "“ane Dine In -----",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "1 ST30 13.87 S",
+     "amounts": [
+      13.87
+     ],
+     "kind": null,
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "| BRIO Stm Ginger R N",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "] TF2 (H) Teh Tarik S",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "I HS4 12.07 §",
+     "amounts": [
+      12.07
+     ],
+     "kind": null,
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "| SN5 Curry Mee N",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "| TF7 (C) Lemon T S",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Subtotal: 25.94",
+     "amounts": [
+      25.94
+     ],
+     "kind": "sub",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "10% Srv Chg: 2.59",
+     "amounts": [
+      2.59
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "GST @6% 1.7]",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Total: 30.24",
+     "amounts": [
+      30.24
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Rounding: 0.01",
+     "amounts": [
+      0.01
+     ],
+     "kind": "ignore",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Amount Due 30.25",
+     "amounts": [
+      30.25
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "INCLUSIVE 0.00 x",
+     "amounts": [
+      0.0
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "----3004 STORED 22 Mar 18 02:1..50 PM---",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "THANK YOU",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "PLEASE COME AGAIN",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "GST @6% included in total",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "GSTSummary Amount(RM) GST(RM)",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "S=GST @6%: 28.53 1.71",
+     "amounts": [
+      28.53,
+      1.71
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "Z=GST @0%: 0.00 0.00",
+     "amounts": [
+      0.0,
+      0.0
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s038",
+  "source": "fixtures/ocr/sroie_420.txt",
+  "texts": [
+   "SWC ENTERPR\n(1125\n\nSDN BAD\n)\n\n8 & 10, Jalan Ijok Permai i,\nPusat Niaga ljo\n48000 Ijok, Se\n\nTAR INVOICE\n(GST ID No. : 002017808384 }\n\n92/01/2018 Cashier:\n10:46:55 No: 01006\n\nItem/Desc. ty Price Ant,\nSXe 5008 (ik) -\n\nSX8 5008 1 4.20 4.20\nTotal üty : i\n\nTOTAL AMOUNT - 4.20\n\nCASH 50.20\n\nCHANGE 46,00\n\nGST @6 Included In Total 2.24\n\nThank You ! Please Come Again !\nGoods Sold Only Exchangable\nWithin 3 Days !\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Swc Enterpr",
+   "date": null,
+   "category": null,
+   "amount": 4.2,
+   "alternatives": [
+    50.2
+   ],
+   "confidence": 12.47619,
+   "ranked": [
+    [
+     4.2,
+     16.357143
+    ],
+    [
+     50.2,
+     1.380952
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "SWC ENTERPR",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "(1125",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "SDN BAD",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": ")",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "8 & 10, Jalan Ijok Permai i,",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Pusat Niaga ljo",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "48000 Ijok, Se",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "TAR INVOICE",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "(GST ID No. : 002017808384 }",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "92/01/2018 Cashier:",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "10:46:55 No: 01006",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Item/Desc. ty Price Ant,",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "SXe 5008 (ik) -",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "SX8 5008 1 4.20 4.20",
+     "amounts": [
+      4.2,
+      4.2
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Total üty : i",
+     "amounts": [],
+     "kind": "sum",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "TOTAL AMOUNT - 4.20",
+     "amounts": [
+      4.2
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "CASH 50.20",
+     "amounts": [
+      50.2
+     ],
+     "kind": "cash",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "CHANGE 46,00",
+     "amounts": [
+      46.0
+     ],
+     "kind": "change",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "GST @6 Included In Total 2.24",
+     "amounts": [
+      2.24
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Thank You ! Please Come Again !",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Goods Sold Only Exchangable",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Within 3 Days !",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s039",
+  "source": "fixtures/ocr/sroie_4970.txt",
+  "texts": [
+   "YHH Aeon Tebrau City\n$117, Second Floor,\nAeon Tebrau City,\n\n1, Jalan Desa Tebrau,\nTaman Desa Tebrau,\n81100 Johor Bahru, Johor.\n002105827328\n\n* TAX INVOICE *\n\nOrder No. 1000249 11/03/2018 07:09 PH\n\nReceipt No. :093-1220845 Pax: 1\nCashier :Cashier\nEat in\n\nFG-A00019 1 1.50 1.50 SR\n“Green Tea\nFG-Y00030 1 12.80 12,80 SR\nYakiniku Bowl &\nFG-Y00183 2 15,80 31.60 SR\nNegi Tana Beef Bowl R\nFG-¥00102 1 3.60 3.80 SR\nMiso/Nakame+Green Tea .\nFG-Y00264 1 0.90 0.00 SR\nMiso Soup\n\nTOTAL :MYR 49.70\n\nTotal Excluded Tax 45.90\n: 2.80\n\nPayment Details\n\nCash 59.00\n\nCash Change 0.30\n\nTax Suimary\n\nTax Code %  Amaunt(HYR) Tax(MYR)\n\n3*+* Thank You ex\nPlease Come Again.\n\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "YHH Aeon Tebrau City",
+   "date": "2018-03-11",
+   "category": null,
+   "amount": 49.7,
+   "alternatives": [
+    58.7,
+    59.0
+   ],
+   "confidence": 4.854839,
+   "ranked": [
+    [
+     49.7,
+     10.854839
+    ],
+    [
+     58.7,
+     3.5
+    ],
+    [
+     59.0,
+     1.419355
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "YHH Aeon Tebrau City",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "$117, Second Floor,",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Aeon Tebrau City,",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "1, Jalan Desa Tebrau,",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Taman Desa Tebrau,",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "81100 Johor Bahru, Johor.",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "002105827328",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "* TAX INVOICE *",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Order No. 1000249 11/03/2018 07:09 PH",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Receipt No. :093-1220845 Pax: 1",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Cashier :Cashier",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Eat in",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "FG-A00019 1 1.50 1.50 SR",
+     "amounts": [
+      1.5,
+      1.5
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "“Green Tea",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "FG-Y00030 1 12.80 12,80 SR",
+     "amounts": [
+      12.8,
+      12.8
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Yakiniku Bowl &",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "FG-Y00183 2 15,80 31.60 SR",
+     "amounts": [
+      15.8,
+      31.6
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Negi Tana Beef Bowl R",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "FG-¥00102 1 3.60 3.80 SR",
+     "amounts": [
+      3.6,
+      3.8
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Miso/Nakame+Green Tea .",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "FG-Y00264 1 0.90 0.00 SR",
+     "amounts": [
+      0.9,
+      0.0
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Miso Soup",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "TOTAL :MYR 49.70",
+     "amounts": [
+      49.7
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Total Excluded Tax 45.90",
+     "amounts": [
+      45.9
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": ": 2.80",
+     "amounts": [
+      2.8
+     ],
+     "kind": null,
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Payment Details",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Cash 59.00",
+     "amounts": [
+      59.0
+     ],
+     "kind": "cash",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Cash Change 0.30",
+     "amounts": [
+      0.3
+     ],
+     "kind": "change",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Tax Suimary",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Tax Code %  Amaunt(HYR) Tax(MYR)",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "3*+* Thank You ex",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Please Come Again.",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s040",
+  "source": "multi-pass",
+  "texts": [
+   "Brot 2,49\nSumme ?\nEC-Karte\n",
+   "Brot 2,49\nSumme 7,48\nEC-Karte 7,48\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Summe",
+   "date": null,
+   "category": null,
+   "amount": 7.48,
+   "alternatives": [],
+   "confidence": 11.5,
+   "ranked": [
+    [
+     7.48,
+     14.0
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "Brot 2,49",
+     "amounts": [
+      2.49
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Summe ?",
+     "amounts": [],
+     "kind": "sum",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "EC-Karte",
+     "amounts": [],
+     "kind": "card",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s041",
+  "source": "multi-pass fixtures/ocr/lidl_1054a.txt+lidl_1054b.txt",
+  "texts": [
+   "e\nLenk.\nHeegermühlerstr. 1\n16225 Eberswalde\nMo-Sa 8-21 Uhr So geschlossen\n\nEUR\nMi Ichmischget rank 0,49 A\nBio Haferdr ink 1,19 B\nJacobs Krön. Kräftig 7,98 A\n2x 3,99\nMineralwasser still 0,38 B\n2x 0,19\nPfand 0,25 EM 0,50B\n2x 0,25\nzu zahlen 10,54\nBar 10,54\nMWST MWST + Netto = Brutto\nA 7 0,55 7,92 8,47\nB 19% 0,33 1,74 2,07\nSumme 0,88 9,6 10,54\n0978 598412/03 16.02.18 09:28\nUST-ID-NR: DE250063577\nxx r%\nVIELEN DANK UND BIS BALD!\nLIDL LOHNT SICH. \\\n++ 3%\n\nKX SALE %X\nDie große Preisschmelze!\n+# NUR ONLINE ++\nTop-Angebote EXTREM reduziert\nCode eingeben: WSV2018\nlid] .de/preisschaelze\n\n",
+   "Heegermühlerstr. 1\n16225 Eberswalde\nMo-Sa 8-21 Uhr So geschlossen\n\nEUR\nMilchmischgetränk 0,49 A\nBio Haferdrink 1,19 B\nJacobs Krön. Kräftig - 7,98 A\n2 X 3,99\nMineralwasser still 0,38 B\n2X f\nPfand 0,25 EM 0,50 B\n2x 0,25\nzu zahlen 10,54\nBar 10,54\nMWST% MUST + Netto = Brutto\nA 7% 0,55 7,32 8,47\nB 19% 0,33 1,74 2,07\nSumme 0,88 9,66 10,54\n0978  5986412/03 16.02.18 09:2\nUST-ID-NR: DE250063577\nkK * %*\n\nVIELEN DANK UND BIS BALD!\nLIDL LOHNT SICH,\nEr 3\n4% S-A-L-E %%\nDie große Preisschmelze!\n** NUR ONLINE **\nTop-Angebote EXTREM reduziert\nCode eingeben: WSV2018\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "Lenk",
+   "date": "2018-02-16",
+   "category": "Lebensmittel",
+   "amount": 10.54,
+   "alternatives": [],
+   "confidence": 24.306452,
+   "ranked": [
+    [
+     10.54,
+     29.306452
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "e",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Lenk.",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Heegermühlerstr. 1",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "16225 Eberswalde",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Mo-Sa 8-21 Uhr So geschlossen",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "EUR",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Mi Ichmischget rank 0,49 A",
+     "amounts": [
+      0.49
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Bio Haferdr ink 1,19 B",
+     "amounts": [
+      1.19
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Jacobs Krön. Kräftig 7,98 A",
+     "amounts": [
+      7.98
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "2x 3,99",
+     "amounts": [
+      3.99
+     ],
+     "kind": "ignore",
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Mineralwasser still 0,38 B",
+     "amounts": [
+      0.38
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "2x 0,19",
+     "amounts": [
+      0.19
+     ],
+     "kind": "ignore",
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Pfand 0,25 EM 0,50B",
+     "amounts": [
+      0.25,
+      0.5
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "2x 0,25",
+     "amounts": [
+      0.25
+     ],
+     "kind": "ignore",
+     "orphan": true,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "zu zahlen 10,54",
+     "amounts": [
+      10.54
+     ],
+     "kind": "final",
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Bar 10,54",
+     "amounts": [
+      10.54
+     ],
+     "kind": "cash",
+     "orphan": true,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "MWST MWST + Netto = Brutto",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "A 7 0,55 7,92 8,47",
+     "amounts": [
+      0.55,
+      7.92,
+      8.47
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "B 19% 0,33 1,74 2,07",
+     "amounts": [
+      0.33,
+      1.74,
+      2.07
+     ],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "Summe 0,88 9,6 10,54",
+     "amounts": [
+      0.88,
+      10.54
+     ],
+     "kind": "sum",
+     "orphan": false,
+     "item": false,
+     "tabular": true,
+     "borrowed": false
+    },
+    {
+     "raw": "0978 598412/03 16.02.18 09:28",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "UST-ID-NR: DE250063577",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "xx r%",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "VIELEN DANK UND BIS BALD!",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "LIDL LOHNT SICH. \\",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "++ 3%",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "KX SALE %X",
+     "amounts": [],
+     "kind": "tax",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Die große Preisschmelze!",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "+# NUR ONLINE ++",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Top-Angebote EXTREM reduziert",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Code eingeben: WSV2018",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "lid] .de/preisschaelze",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ },
+ {
+  "id": "s042",
+  "source": "multi-pass fixtures/ocr/rewe_188a.txt+rewe_188b.txt",
+  "texts": [
+   "REWE\n\nNeTR2DB Eber s Str. 19\nerswalde\n\nTel. : 03334 5263377\n\nUID Nr. : DE308313039 aR\nMIO MATE BANANE 0,69 A\nPFAND 0, 15 EUR 0.15 A x\nLOSCHER CLUBMATE\nPFAND 0, 15 EUR j 015.4 x\nME ER, 1.88\nGeg. BAR EUR 2,0\nRückgeld BAR EUR 0%\n\nei Te ETE\n\n16. 02. 2018 15:44 Bon- “Nr.\nMarkt: 5647 Kasse:2 Bed. Niet\n\nKRITIKEN ST SEABVSSRAALAMAEKKEKKRAKTAKEAS\n\nJetzt mit PAYBACK Punkten bezahlen!\nEinfach RFWE Guthaben an Service-Punkt\naufladen.\n\nFür die mit x gekennzeichneten Produkte\nerhalten Sie leider keine Rabatte\noder PAYBACK Punkte.\n\nLETTER FETT TTTE RE VEEAMAVSACEAKKKEKKEKKAKAKAE\nVielen Dank für Ihren Einkauf\n\nWir sind für Sie\nMo. - Sa. 07:00 bis 21: 2 Uhr\n\nSie haben Fragen?\nAntworten gibt es unter mn. rewe. de\n",
+   "oH\nEee str. 19\nEberswalde\nTel. : 03334 5263377\nUID Nr. : DE308313039\n\nEUR\nMIO MATE BANANE 0,69 A\nAN 0. 15 A x\nLOSCHER. CP UBMATE 89 A\nPFAND 0, 15 EUR oo 4 15 h x\nGeg BAR | “EUR 2,00\nRückgeld BAR EUR 0,12\n\nDT, u > \"ER\n\n16. 02. 2018 15:44 Bon- N\nMarkt:5647 Kasse:2 Bed. : \"hier\n\nJetzt mit PAYBACK Punkten bezahlen!\nEinfach REWE Guthaben am Service-Punkt\naufladen.\n\nFür die mit * gekennzeichneten Produkte\nerhalten Sie leider keine Rabatte\noder PAYBACK Punkte.\n\nOOOO HOO AAGOOR CCGA OOO OK\nVielen Dank für Ihren Einkauf\n\nwir sind für Sie da:\nMo. - Sa. 07:00 bis 21:30 Uhr\n\nsie haben Fragen?\nAntworten gibt es unter www. rewe. de\n\nPT\n\n"
+  ],
+  "today": "2026-11-13",
+  "expected": {
+   "title": "REWE",
+   "date": "2018-02-16",
+   "category": "Lebensmittel",
+   "amount": 1.88,
+   "alternatives": [
+    2.0
+   ],
+   "confidence": 2.481481,
+   "ranked": [
+    [
+     1.88,
+     3.666667
+    ],
+    [
+     2.0,
+     1.185185
+    ]
+   ],
+   "lines": [
+    {
+     "raw": "REWE",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "NeTR2DB Eber s Str. 19",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "erswalde",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Tel. : 03334 5263377",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "UID Nr. : DE308313039 aR",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "MIO MATE BANANE 0,69 A",
+     "amounts": [
+      0.69
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "PFAND 0, 15 EUR 0.15 A x",
+     "amounts": [
+      0.15,
+      0.15
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "LOSCHER CLUBMATE",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "PFAND 0, 15 EUR j 015.4 x",
+     "amounts": [
+      0.15
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ME ER, 1.88",
+     "amounts": [
+      1.88
+     ],
+     "kind": null,
+     "orphan": false,
+     "item": true,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Geg. BAR EUR 2,0",
+     "amounts": [],
+     "kind": "cash",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Rückgeld BAR EUR 0%",
+     "amounts": [],
+     "kind": "change",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "ei Te ETE",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "16. 02. 2018 15:44 Bon- “Nr.",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Markt: 5647 Kasse:2 Bed. Niet",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "KRITIKEN ST SEABVSSRAALAMAEKKEKKRAKTAKEAS",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Jetzt mit PAYBACK Punkten bezahlen!",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Einfach RFWE Guthaben an Service-Punkt",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "aufladen.",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Für die mit x gekennzeichneten Produkte",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "erhalten Sie leider keine Rabatte",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "oder PAYBACK Punkte.",
+     "amounts": [],
+     "kind": "ignore",
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "LETTER FETT TTTE RE VEEAMAVSACEAKKKEKKEKKAKAKAE",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Vielen Dank für Ihren Einkauf",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Wir sind für Sie",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Mo. - Sa. 07:00 bis 21: 2 Uhr",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Sie haben Fragen?",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    },
+    {
+     "raw": "Antworten gibt es unter mn. rewe. de",
+     "amounts": [],
+     "kind": null,
+     "orphan": false,
+     "item": false,
+     "tabular": false,
+     "borrowed": false
+    }
+   ]
+  }
+ }
+]
